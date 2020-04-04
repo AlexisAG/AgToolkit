@@ -1,9 +1,10 @@
+using AgToolkit.AgToolkit.Core.GameModes;
 using UnityEngine;
 
-namespace AgToolkit.AgToolkit.Core.GameModes
+namespace AgToolkit.Core.Helper
 {
 	/// <summary>
-	/// small component usefull to change a gaemmode from a unityevent
+	/// small component usefull to change a gamemode from a unityevent
 	/// </summary>
 	public class GameModeChanger : MonoBehaviour
 	{
