@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace AgToolkit.AgToolkit.Core.Helper.Collections
+namespace AgToolkit.Core.Helper.Collections
 {
 
 	[Serializable]

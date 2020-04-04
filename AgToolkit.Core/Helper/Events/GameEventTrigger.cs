@@ -1,7 +1,7 @@
-using FramaToolkit;
+using AgToolkit.Core.Helper.GameVars;
 using UnityEngine;
 
-namespace AgToolkit.AgToolkit.Core.Helper.Events
+namespace AgToolkit.Core.Helper.Events
 {
 
 	/// <summary>

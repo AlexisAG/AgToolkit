@@ -1,7 +1,7 @@
-using AgToolkit.AgToolkit.Core.Helper.Events;
+using AgToolkit.Core.Helper.Events;
 using UnityEngine;
 
-namespace FramaToolkit
+namespace AgToolkit.Core.Helper.GameVars
 {
 	public abstract class GameVar : ScriptableObject
 	{

@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using AgToolkit.AgToolkit.Core.Helper;
 using AgToolkit.AgToolkit.Core.Singleton;
+using AgToolkit.Core.Helper;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

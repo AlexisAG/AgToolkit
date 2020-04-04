@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
-using AgToolkit.AgToolkit.Core.Helper.Events.Listeners;
+using AgToolkit.Core.Helper.Events.Listeners;
+using UnityEngine;
 
-namespace AgToolkit.AgToolkit.Core.Helper.Events
+namespace AgToolkit.Core.Helper.Events
 {
 	public class GameEvent : ScriptableObject, IGameEvent
 	{

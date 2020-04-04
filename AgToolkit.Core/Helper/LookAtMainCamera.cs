@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Animations;
 
-namespace FramaToolkit
+namespace AgToolkit.Core.Helper
 {
 	[RequireComponent(typeof(LookAtConstraint))]
 	public class LookAtMainCamera : MonoBehaviour

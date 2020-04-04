@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FramaToolkit
+namespace AgToolkit.Core.Helper.GameVars
 {
 	[Serializable]
 	public class IntGameVar : GameVar<int> { }

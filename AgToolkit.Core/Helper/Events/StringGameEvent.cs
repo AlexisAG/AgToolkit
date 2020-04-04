@@ -1,6 +1,6 @@
 using System;
 
-namespace AgToolkit.AgToolkit.Core.Helper.Events
+namespace AgToolkit.Core.Helper.Events
 {
 
 	[Serializable]

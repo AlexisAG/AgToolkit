@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace AgToolkit.AgToolkit.Core.Helper.Events.Listeners
+namespace AgToolkit.Core.Helper.Events.Listeners
 {
 	public class GameEventListener : MonoBehaviour, IGameEventListener
 	{
