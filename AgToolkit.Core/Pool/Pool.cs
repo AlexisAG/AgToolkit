@@ -2,68 +2,73 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
+using Object = UnityEngine.Object;
 
-namespace AgToolkit.AgToolkit.Core.Pool
+namespace AgToolkit.Core.Pool
 {
 
 	[Serializable]
 	public struct PoolData
 	{
 		[SerializeField]
-		internal string poolId;
+		private string _poolId;
 		[SerializeField]
-		internal GameObject prefab;
-		[SerializeField]
-		internal int amount;
-		[SerializeField]
-		internal bool expandable;
+		private GameObject _prefab;
+		[SerializeField, Tooltip("object available for this pool")]
+		private int _amount;
+		[SerializeField, Tooltip("gameobjects will be instantiated dynamically if amount his too lower")]
+		private bool _expandable;
 		[SerializeField, Tooltip("Object is sent back to pool automatically on disable if true")]
-		internal bool autoSendBack;
+		private bool _autoSendBack;
 
-		public string PoolId => poolId;
-
-		public bool AutoSendBack => autoSendBack;
-
-		public PoolData(string identifier, GameObject prefabToPool, int amountToPool, bool expandablePool = false, bool autoSendBackMembers = true)
+        public PoolData(string identifier, GameObject prefabToPool, int amountToPool, bool expandablePool = false, bool autoSendBackMembers = true)
 		{
-			poolId = identifier;
-			prefab = prefabToPool;
-			amount = amountToPool;
-			expandable = expandablePool;
-			autoSendBack = autoSendBackMembers;
+			_poolId = identifier;
+			_prefab = prefabToPool;
+			_amount = amountToPool;
+			_expandable = expandablePool;
+			_autoSendBack = autoSendBackMembers;
 		}
 
-	}
+        public GameObject Prefab => _prefab;
+        public string PoolId => _poolId;
+        public int Amount => _amount;
+        public bool IsAutoSendBack => _autoSendBack;
+        public bool IsExpandable => _expandable;
+
+    }
 
 	[Serializable]
 	public class Pool
 	{
 
 		[SerializeField]
-		internal PoolData poolData;
+		internal PoolData _poolData;
 
-		private GameObject poolParent = null;
-		private List<GameObject> pooledObjects = new List<GameObject>();
+		private GameObject _poolParent = null;
+		private List<GameObject> _pooledObjects = new List<GameObject>();
 
 		internal GameObject GetOne()
 		{
-			for (int i = 0; i < pooledObjects.Count; i++)
-			{
-				PoolMember member = pooledObjects[i].GetComponent<PoolMember>();
-				if (!pooledObjects[i].activeSelf && member.Available)
-				{
-					member.BackToPool = false; //cancel back to pool if disabled same frame
-					member.Available = false;
-					return pooledObjects[i];
-				}
-			}
+			foreach (GameObject g in _pooledObjects)
+            {
+                PoolMember member = g.GetComponent<PoolMember>();
+                if (!g.activeSelf && member.Available)
+                {
+                    member.BackToPool = false; //cancel back to pool if disabled same frame
+                    member.Available = false;
+                    return g;
+                }
+            }
 
-			if (poolData.expandable)
+            // If no member available
+			if (_poolData.IsExpandable)
 			{
 				return Expand();
 			}
 
-			Debug.LogError($"[Pool] {poolData.poolId} is empty and non expandable, can't extract an object.");
+			Debug.LogError($"[{GetType().Name}] {_poolData.PoolId} is empty and non expandable, can't extract an object.");
 
 			return null;
 		}
@@ -71,56 +76,51 @@ namespace AgToolkit.AgToolkit.Core.Pool
 		internal void BackToPool(GameObject gameObject)
 		{
 			//check that it's an object from this pool
-			Debug.Assert(gameObject != null && gameObject.GetComponent<PoolMember>() != null && pooledObjects.Contains(gameObject)
-				, $"[Pool] trying to release object {gameObject?.name} that is not part of pool {poolData.poolId}");
+			Debug.Assert(gameObject != null && gameObject.GetComponent<PoolMember>() != null && _pooledObjects.Contains(gameObject)
+				, $"[{GetType().Name}] trying to release object {gameObject?.name} that is not part of pool {_poolData.PoolId}");
 
-			gameObject.transform.SetParent(poolParent.transform, false);
+			gameObject.transform.SetParent(_poolParent.transform, false);
 
 			gameObject.SetActive(false);
 
 			gameObject.GetComponent<PoolMember>().Available = true;
 		}
 
-		internal IEnumerator CreatePoolObjects(Transform parent)
+		internal void CreatePoolObjects(Transform parent)
 		{
-			poolParent = new GameObject(poolData.poolId);
-			poolParent.transform.parent = parent;
-			for (int i = 0; i < poolData.amount; i++)
+			_poolParent = new GameObject(_poolData.PoolId);
+			_poolParent.transform.parent = parent;
+			for (int i = 0; i < _poolData.Amount; i++)
 			{
 				Expand();
-
-				if (i % 10 == 0)// make some pauses :)
-				{
-					yield return null;
-				}
-			}
+            }
 		}
 
 		private GameObject Expand()
 		{
-			GameObject obj = UnityEngine.Object.Instantiate(poolData.prefab, poolParent.transform);
-			obj.SetActive(false); // disable by default
-			obj.AddComponent<PoolMember>().ParentPool = this; //add a tracker
+			GameObject obj = UnityEngine.Object.Instantiate(_poolData.Prefab, _poolParent.transform);
+			obj.SetActive(false);
+			obj.AddComponent<PoolMember>().ParentPool = this;
+            _pooledObjects.Add(obj);
 
-			pooledObjects.Add(obj);
 			return obj;
 		}
 
 		internal void DestroyPoolObjects()
 		{
-			foreach (GameObject go in pooledObjects)
+			foreach (GameObject go in _pooledObjects)
 			{
 				go.GetComponent<PoolMember>().Available = false;
 				go.GetComponent<PoolMember>().DestroyedByPool = true;
-				GameObject.Destroy(go);
+				Object.Destroy(go);
 			}
-			pooledObjects.Clear();
-			GameObject.Destroy(poolParent);
+			_pooledObjects.Clear();
+			Object.Destroy(_poolParent);
 		}
 
 		internal void Reset()
 		{
-			foreach (GameObject go in pooledObjects)
+			foreach (GameObject go in _pooledObjects)
 			{
 				BackToPool(go);
 			}

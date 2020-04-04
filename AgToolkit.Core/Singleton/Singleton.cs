@@ -2,37 +2,37 @@ using UnityEngine;
 
 namespace AgToolkit.AgToolkit.Core.Singleton
 {
-	public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+    public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 	{
-		private static bool ShuttingDown = false;
-		private static readonly object Lock = new object();
+		private static bool _ShuttingDown = false;
+		private static readonly object _Lock = new object();
 
-		private static T sInstance;
+		private static T _Instance;
 		public static T Instance
 		{
 			get
 			{
-				if (ShuttingDown)
+				if (_ShuttingDown)
 				{
 					Debug.LogWarning($"[Singleton] Instance <{typeof(T)}> already destroyed. Returning null.");
 					return null;
 				}
 
-				lock (Lock)
+				lock (_Lock)
 				{
-					if (sInstance == null)
+					if (_Instance == null)
 					{
 						Debug.LogWarning($"[Singleton] Instance <{typeof(T)}> does not exists, creating on runtime. Prefer adding the component in Scene directly.");
 
 						//create GameObject with Component
-						sInstance = new GameObject(typeof(T).Name).AddComponent<T>();
+						_Instance = new GameObject(typeof(T).Name).AddComponent<T>();
 					}
-					return sInstance;
+					return _Instance;
 				}
 			}
-			private set => sInstance = value;
+			private set => _Instance = value;
 		}
-		public static bool IsInstanced => sInstance != null;
+		public static bool IsInstanced => _Instance != null;
 
 		protected virtual void Awake()
 		{
@@ -47,17 +47,17 @@ namespace AgToolkit.AgToolkit.Core.Singleton
 
 		protected virtual void OnApplicationQuit()
 		{
-			ShuttingDown = true;
+			_ShuttingDown = true;
 		}
 
 		protected virtual void OnDestroy()
 		{
-			ShuttingDown = true;
+			_ShuttingDown = true;
 		}
 
 		private void CreateInstance()
 		{
-			lock (Lock)
+			lock (_Lock)
 			{
 				if (!IsInstanced)
 				{
