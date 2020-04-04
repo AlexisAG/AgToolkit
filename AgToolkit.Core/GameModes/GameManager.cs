@@ -1,7 +1,7 @@
 using System.Collections;
-using AgToolkit.AgToolkit.Core.Loader;
 using UnityEngine;
 using  AgToolkit.AgToolkit.Core.Singleton;
+using AgToolkit.Core.Loader;
 
 namespace AgToolkit.AgToolkit.Core.GameModes
 {
@@ -14,8 +14,8 @@ namespace AgToolkit.AgToolkit.Core.GameModes
 
 		protected void Start()
 		{
-			SceneLoader.Instance.OnBeforeUnload += OnBeforeUnload;
-			SceneLoader.Instance.OnAfterLoad += OnAfterLoad;
+			SceneLoaderManager.Instance.OnBeforeUnload += OnBeforeUnload;
+			SceneLoaderManager.Instance.OnAfterLoad += OnAfterLoad;
 
 			ChangeGameMode(GameModesConfig?.FirstGameMode);
 		}
@@ -31,8 +31,8 @@ namespace AgToolkit.AgToolkit.Core.GameModes
 		{
 			Debug.Assert(GameModesConfig != null, $"No GameModeConfig set in GameManager.");
 
-			SceneDesc sceneToLoad = GameModesConfig.GetSceneDesc(gameMode);
-			Debug.Assert(sceneToLoad != null, $"No SceneDesc set for GameMode {gameMode.Name}, did you forget to set GameManager entry ?");
+			SceneContent sceneToLoad = GameModesConfig.GetSceneDesc(gameMode);
+			Debug.Assert(sceneToLoad != null, $"No SceneContent set for GameMode {gameMode.Name}, did you forget to set GameManager entry ?");
 
 			ChangeGameMode(sceneToLoad);
 		}
@@ -40,10 +40,10 @@ namespace AgToolkit.AgToolkit.Core.GameModes
 		/// <summary>
 		/// 
 		/// </summary>
-		/// <param name="sceneDesc">scriptable object containing the new scene(s) to load, one of them must contain a GameMode </param>
-		internal void ChangeGameMode(SceneDesc sceneDesc)
+		/// <param name="sceneContent">scriptable object containing the new scene(s) to load, one of them must contain a GameMode </param>
+		internal void ChangeGameMode(SceneContent sceneContent)
 		{
-			SceneLoader.Instance.Load(sceneDesc);
+			SceneLoaderManager.Instance.Load(sceneContent);
 		}
 
 		internal void SetGameMode(GameMode gameMode)

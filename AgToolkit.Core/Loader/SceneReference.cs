@@ -1,36 +1,32 @@
 using System;
 using UnityEditor;
 using UnityEngine;
+
 #if UNITY_EDITOR
 
 #endif
 
-namespace AgToolkit.AgToolkit.Core.Loader
+namespace AgToolkit.Core.Loader
 {
 	[Serializable]
 	public sealed class SceneReference : ISerializationCallbackReceiver
 	{
 
 		[SerializeField]
-		private UnityEngine.Object sceneAsset; // hidden by the drawer
+		private UnityEngine.Object _sceneAsset; // hidden by the drawer
 
 #if UNITY_EDITOR
 		private bool IsValidSceneAsset
 		{
 			get
-			{
-				if (sceneAsset == null)
-				{
-					return true;
-				}
-
-				return sceneAsset.GetType().Equals(typeof(SceneAsset));
-			}
+            {
+                return _sceneAsset == null || _sceneAsset.GetType().Equals(typeof(SceneAsset));
+            }
 		}
 #endif
 
 		[SerializeField]
-		private string scenePath; // hidden by the drawer
+		private string _scenePath; // hidden by the drawer
 								  // Use this when you want to actually have the scene path
 		public string ScenePath
 		{
@@ -46,9 +42,9 @@ namespace AgToolkit.AgToolkit.Core.Loader
 
 			set
 			{
-				scenePath = value;
+				_scenePath = value;
 #if UNITY_EDITOR
-				sceneAsset = GetSceneAssetFromPath();
+				_sceneAsset = GetSceneAssetFromPath();
 #endif
 			}
 		}
@@ -82,33 +78,33 @@ namespace AgToolkit.AgToolkit.Core.Loader
 #if UNITY_EDITOR
 		private SceneAsset GetSceneAssetFromPath()
 		{
-			if (string.IsNullOrEmpty(scenePath))
+			if (string.IsNullOrEmpty(_scenePath))
 			{
 				return null;
 			}
 
-			return AssetDatabase.LoadAssetAtPath<SceneAsset>(scenePath);
+			return AssetDatabase.LoadAssetAtPath<SceneAsset>(_scenePath);
 		}
 
 		private string GetScenePathFromAsset()
 		{
-			if (sceneAsset == null)
+			if (_sceneAsset == null)
 			{
 				return string.Empty;
 			}
 
-			return AssetDatabase.GetAssetPath(sceneAsset);
+			return AssetDatabase.GetAssetPath(_sceneAsset);
 		}
 
 		private void HandleBeforeSerialize()
 		{
 			// Asset is invalid but have Path to try and recover from
-			if (IsValidSceneAsset == false && string.IsNullOrEmpty(scenePath) == false)
+			if (IsValidSceneAsset == false && string.IsNullOrEmpty(_scenePath) == false)
 			{
-				sceneAsset = GetSceneAssetFromPath();
-				if (sceneAsset == null)
+				_sceneAsset = GetSceneAssetFromPath();
+				if (_sceneAsset == null)
 				{
-					scenePath = string.Empty;
+					_scenePath = string.Empty;
 				}
 
 				UnityEditor.SceneManagement.EditorSceneManager.MarkAllScenesDirty();
@@ -116,7 +112,7 @@ namespace AgToolkit.AgToolkit.Core.Loader
 			// Asset takes precendence and overwrites Path
 			else
 			{
-				scenePath = GetScenePathFromAsset();
+				_scenePath = GetScenePathFromAsset();
 			}
 		}
 
@@ -130,13 +126,13 @@ namespace AgToolkit.AgToolkit.Core.Loader
 			}
 
 			// Asset is invalid but have path to try and recover from
-			if (string.IsNullOrEmpty(scenePath) == false)
+			if (string.IsNullOrEmpty(_scenePath) == false)
 			{
-				sceneAsset = GetSceneAssetFromPath();
+				_sceneAsset = GetSceneAssetFromPath();
 				// No asset found, path was invalid. Make sure we don't carry over the old invalid path
-				if (sceneAsset == null)
+				if (_sceneAsset == null)
 				{
-					scenePath = string.Empty;
+					_scenePath = string.Empty;
 				}
 
 				if (Application.isPlaying == false)

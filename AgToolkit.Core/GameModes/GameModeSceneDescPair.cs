@@ -1,5 +1,5 @@
 using System;
-using AgToolkit.AgToolkit.Core.Loader;
+using AgToolkit.Core.Loader;
 
 namespace AgToolkit.AgToolkit.Core.GameModes
 {
@@ -7,7 +7,7 @@ namespace AgToolkit.AgToolkit.Core.GameModes
 	public class GameModeSceneDescPair
 	{
 		public EnumGameMode GameMode = null;
-		public SceneDesc SceneDesc = null;
+		public SceneContent _sceneContent = null;
 
 	}
 }
