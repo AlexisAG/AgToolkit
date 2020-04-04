@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FramaToolkit
 {
-	public abstract class GameVar : ExpandableScriptableObject
+	public abstract class GameVar : ScriptableObject
 	{
 		public abstract void FillGameEvent(GameEvent evt);
 	}

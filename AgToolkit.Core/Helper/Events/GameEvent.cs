@@ -4,7 +4,7 @@ using AgToolkit.AgToolkit.Core.Helper.Events.Listeners;
 
 namespace AgToolkit.AgToolkit.Core.Helper.Events
 {
-	public class GameEvent : ExpandableScriptableObject, IGameEvent
+	public class GameEvent : ScriptableObject, IGameEvent
 	{
 		[NonSerialized]
 		internal List<IGameEventListener> Listeners = new List<IGameEventListener>();

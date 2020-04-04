@@ -1,6 +1,6 @@
 namespace AgToolkit.AgToolkit.Core.GameModes
 {
-	public class EnumGameMode : ExpandableScriptableObject
+	public class EnumGameMode : ScriptableObject
 	{
 		public string Name => name;
 	}
