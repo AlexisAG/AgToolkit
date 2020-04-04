@@ -1,7 +1,7 @@
 ---
 name: Network bug report
 about: Create a report about network module to help us improve
-title: "[NETWORK]"
+title: "[Network]"
 labels: bug, network
 assignees: AlexisAG
 

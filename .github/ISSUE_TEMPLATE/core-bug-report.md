@@ -1,7 +1,7 @@
 ---
 name: Core bug report
 about: Create a report about the core module to help us improve
-title: "[CORE]"
+title: "[Core]"
 labels: bug, core
 assignees: AlexisAG
 
