@@ -20,7 +20,7 @@ namespace AgToolkit.AgToolkit.Core.GameModes
 		public SceneContent GetSceneDesc(EnumGameMode gameMode)
 		{
 			Debug.Assert(gameModeDesc.Any(p => gameMode == p.GameMode), $"No entry in GameModeConfig for {gameMode.Name}");
-			return gameModeDesc.Single(p => gameMode == p.GameMode)?._sceneContent;
+			return gameModeDesc.Single(p => gameMode == p.GameMode)?.SceneContent;
 		}
 
 	}

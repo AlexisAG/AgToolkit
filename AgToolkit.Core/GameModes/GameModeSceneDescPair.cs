@@ -7,7 +7,7 @@ namespace AgToolkit.AgToolkit.Core.GameModes
 	public class GameModeSceneDescPair
 	{
 		public EnumGameMode GameMode = null;
-		public SceneContent _sceneContent = null;
+		public SceneContent SceneContent = null;
 
 	}
 }
