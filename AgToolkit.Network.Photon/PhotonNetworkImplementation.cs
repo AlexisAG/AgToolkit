@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using AgToolkit.AgToolkit.Network.Interfaces;
 using UnityEngine;
 
 namespace AgToolkit.AgToolkit.Network.Photon

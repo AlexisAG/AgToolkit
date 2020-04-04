@@ -3,7 +3,8 @@
     "references": [
         "PhotonUnityNetworking",
         "PhotonRealtime",
-        "AgToolkit.Network"
+        "AgToolkit.Network",
+        "AgToolkit.Core"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
