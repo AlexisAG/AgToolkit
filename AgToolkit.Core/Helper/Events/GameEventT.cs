@@ -21,11 +21,11 @@ namespace AgToolkit.Core.Helper.Events
 
 		public override void Raise()
 		{
-			Debug.Assert(Param != default);
-			for (int i = 0; i < ParamListeners.Count; ++i)
-			{
-				ParamListeners[i].OnEventRaised(this);
-			}
+            Debug.Assert(Param != default);
+			foreach (var listener in ParamListeners)
+            {
+                listener.OnEventRaised(this);
+            }
 			Param = default;//reset, to check at next call if Param is still set correctly(can have 1 game event with multiple different calls)
 
 			Debug.Assert(Listeners.Count == 0);//should not have register listeners through the wrong list, or is it wanted ? should we call base.Raise() ?

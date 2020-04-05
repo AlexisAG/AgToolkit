@@ -11,12 +11,12 @@ namespace AgToolkit.Core.Helper.Events
 		internal List<IGameEventListener> Listeners = new List<IGameEventListener>();
 
 		public virtual void Raise()
-		{
-			for (int i = 0; i < Listeners.Count; ++i)
-			{
-				Listeners[i].OnEventRaised(this);
-			}
-		}
+        {
+            foreach (IGameEventListener listener in Listeners)
+            {
+                listener.OnEventRaised(this);
+            }
+        }
 
 		public void RegisterListener(IGameEventListener listener)
 		{

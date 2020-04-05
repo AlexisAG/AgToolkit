@@ -1,7 +1,8 @@
+using AgToolkit.Core.Helper.Events;
 using AgToolkit.Core.Helper.GameVars;
 using UnityEngine;
 
-namespace AgToolkit.Core.Helper.Events
+namespace AgToolkit.Core.Helper
 {
 
 	/// <summary>
