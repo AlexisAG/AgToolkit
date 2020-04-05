@@ -10,12 +10,9 @@ namespace AgToolkit.Core.Helper.Events.Listeners
 
 		public IGameEvent Event => _event;
 
-		[SerializeField]
 		public UnityEvent Callbacks;
-		//keep public otherwise unity editor does not isplay dynamic calls...
 
-
-		public void OnEventRaised(IGameEvent gameEvent)
+        public void OnEventRaised(IGameEvent gameEvent)
 		{
 			Callbacks.Invoke();
 		}
@@ -24,7 +21,7 @@ namespace AgToolkit.Core.Helper.Events.Listeners
 		{
 			if (Event == null)
 			{
-				Debug.LogWarning($"[GameEventListener] no GameEvent defined.");
+				Debug.LogWarning($"[{GetType().Name}] no GameEvent defined.");
 			}
 			else
 			{
