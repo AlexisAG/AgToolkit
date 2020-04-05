@@ -2,20 +2,20 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using UnityEngine;
 
-namespace AgToolkit.Core.Helper.Collections
+namespace AgToolkit.Core.Helper.Serialization
 {
     public abstract class SerializableDictionaryBase<TKey, TValue, TValueStorage> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver
     {
         [SerializeField]
-        private TKey[] m_keys;
+        private TKey[] _keys;
         [SerializeField]
-        private TValueStorage[] m_values;
+        private TValueStorage[] _values;
 
-        public SerializableDictionaryBase()
+        protected SerializableDictionaryBase()
         {
         }
 
-        public SerializableDictionaryBase(IDictionary<TKey, TValue> dict) : base(dict.Count)
+        protected SerializableDictionaryBase(IDictionary<TKey, TValue> dict) : base(dict.Count)
         {
             foreach (KeyValuePair<TKey, TValue> kvp in dict)
             {
@@ -39,32 +39,33 @@ namespace AgToolkit.Core.Helper.Collections
 
         public void OnAfterDeserialize()
         {
-            if (m_keys != null && m_values != null && m_keys.Length == m_values.Length)
-            {
-                Clear();
-                int n = m_keys.Length;
-                for (int i = 0; i < n; ++i)
-                {
-                    this[m_keys[i]] = GetValue(m_values, i);
-                }
+            if (_keys == null) return;
+            if (_values == null) return;
+            if (_keys.Length != _values.Length) return;
 
-                m_keys = null;
-                m_values = null;
+            Clear();
+            int n = _keys.Length;
+            for (int i = 0; i < n; ++i)
+            {
+                this[_keys[i]] = GetValue(_values, i);
             }
+
+            _keys = null;
+            _values = null;
 
         }
 
         public void OnBeforeSerialize()
         {
             int n = Count;
-            m_keys = new TKey[n];
-            m_values = new TValueStorage[n];
+            _keys = new TKey[n];
+            _values = new TValueStorage[n];
 
             int i = 0;
             foreach (KeyValuePair<TKey, TValue> kvp in this)
             {
-                m_keys[i] = kvp.Key;
-                SetValue(m_values, i, kvp.Value);
+                _keys[i] = kvp.Key;
+                SetValue(_values, i, kvp.Value);
                 ++i;
             }
         }

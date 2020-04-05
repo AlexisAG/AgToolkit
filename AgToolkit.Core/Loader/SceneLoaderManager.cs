@@ -10,8 +10,7 @@ namespace AgToolkit.Core.Loader
 {
 	public class SceneLoaderManager : Singleton<SceneLoaderManager>
 	{
-
-		[SerializeField]
+        [SerializeField]
 		private SceneReference _defaultLoadingScene = null;
 
 		[SerializeField]
