@@ -1,8 +1,9 @@
 using System.Collections;
-using AgToolkit.AgToolkit.Core.GameModes.GameStates;
+using AgToolkit.AgToolkit.Core.GameModes;
+using AgToolkit.Core.GameModes.GameStates;
 using UnityEngine;
 
-namespace AgToolkit.AgToolkit.Core.GameModes
+namespace AgToolkit.Core.GameModes
 {
 	public abstract class GameMode : MonoBehaviour
 	{

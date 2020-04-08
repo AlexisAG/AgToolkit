@@ -1,6 +1,7 @@
 using System;
+using AgToolkit.AgToolkit.Core.GameModes;
 
-namespace AgToolkit.AgToolkit.Core.GameModes.GameStates
+namespace AgToolkit.Core.GameModes.GameStates
 {
 	[Serializable]
 	public class ExitData : IGameStateData

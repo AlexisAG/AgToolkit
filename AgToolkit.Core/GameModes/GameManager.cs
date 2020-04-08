@@ -1,14 +1,15 @@
 using System.Collections;
-using UnityEngine;
-using  AgToolkit.AgToolkit.Core.Singleton;
+using AgToolkit.AgToolkit.Core.GameModes;
+using AgToolkit.AgToolkit.Core.Singleton;
 using AgToolkit.Core.Loader;
+using UnityEngine;
 
-namespace AgToolkit.AgToolkit.Core.GameModes
+namespace AgToolkit.Core.GameModes
 {
 	public class GameManager : Singleton<GameManager>
 	{
 		[SerializeField]
-		private GameModeConfig GameModesConfig = null;
+		private GameModeConfig _gameModesConfig = null;
 
 		public GameMode CurrentGameMode { get; private set; }
 
@@ -17,7 +18,7 @@ namespace AgToolkit.AgToolkit.Core.GameModes
 			SceneLoaderManager.Instance.OnBeforeUnload += OnBeforeUnload;
 			SceneLoaderManager.Instance.OnAfterLoad += OnAfterLoad;
 
-			ChangeGameMode(GameModesConfig?.FirstGameMode);
+			ChangeGameMode(_gameModesConfig?.FirstGameMode);
 		}
 
 		public T GetCurrentGameMode<T>() where T : GameMode
@@ -29,9 +30,9 @@ namespace AgToolkit.AgToolkit.Core.GameModes
 
 		public void ChangeGameMode(EnumGameMode gameMode)
 		{
-			Debug.Assert(GameModesConfig != null, $"No GameModeConfig set in GameManager.");
+			Debug.Assert(_gameModesConfig != null, $"No GameModeConfig set in GameManager.");
 
-			SceneContent sceneToLoad = GameModesConfig.GetSceneDesc(gameMode);
+			SceneContent sceneToLoad = _gameModesConfig.GetSceneContent(gameMode);
 			Debug.Assert(sceneToLoad != null, $"No SceneContent set for GameMode {gameMode.Name}, did you forget to set GameManager entry ?");
 
 			ChangeGameMode(sceneToLoad);

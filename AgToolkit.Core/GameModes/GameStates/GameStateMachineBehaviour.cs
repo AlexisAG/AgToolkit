@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace AgToolkit.AgToolkit.Core.GameModes.GameStates
+namespace AgToolkit.Core.GameModes.GameStates
 {
 	/// <summary>
 	/// Base State Behaviour class for all animator controller states that are used as GameStates

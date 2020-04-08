@@ -12,15 +12,14 @@ namespace AgToolkit.AgToolkit.Core.GameModes
 		[SerializeField]
 		private EnumGameMode _firstGameMode = null;
 
-		public EnumGameMode FirstGameMode => _firstGameMode;
+        [SerializeField]
+		private List<GameModeSceneContentPair> _gameModeContentPairs = new List<GameModeSceneContentPair> { new GameModeSceneContentPair { } };
+        public EnumGameMode FirstGameMode => _firstGameMode;
 
-		[SerializeField]
-		private List<GameModeSceneDescPair> gameModeDesc = new List<GameModeSceneDescPair> { new GameModeSceneDescPair { } };
-
-		public SceneContent GetSceneDesc(EnumGameMode gameMode)
+        public SceneContent GetSceneContent(EnumGameMode gameMode)
 		{
-			Debug.Assert(gameModeDesc.Any(p => gameMode == p.GameMode), $"No entry in GameModeConfig for {gameMode.Name}");
-			return gameModeDesc.Single(p => gameMode == p.GameMode)?.SceneContent;
+			Debug.Assert(_gameModeContentPairs.Any(p => gameMode == p.GameMode), $"No entry in GameModeConfig for {gameMode.Name}");
+			return _gameModeContentPairs.Single(p => gameMode == p.GameMode)?.SceneContent;
 		}
 
 	}
