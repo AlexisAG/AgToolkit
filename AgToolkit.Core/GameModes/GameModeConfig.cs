@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace AgToolkit.AgToolkit.Core.GameModes
 {
-	[CreateAssetMenu(menuName = "AgToolkit/Game Mode Config", fileName = "NewGameModeConfig")]
+	[CreateAssetMenu(menuName = "AgToolkit/GameModeConfig", fileName = "NewGameModeConfig")]
 	public class GameModeConfig : ScriptableObject
 	{
 		[SerializeField]
