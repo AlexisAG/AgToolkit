@@ -18,6 +18,9 @@ namespace AgToolkit.AgToolkit.Core.Timer
         public UnityEvent Event => _Event;
         public bool IsActive = false;
 
+        /// <summary>
+        /// Create a Timer with an Id, the limit (ex: 5f -> 5s) and the UnityEvent to invoke
+        /// </summary>
         public Timer(string id, float limit, UnityEvent e)
         {
             _Id = id;
@@ -31,6 +34,9 @@ namespace AgToolkit.AgToolkit.Core.Timer
             }
         }
 
+        /// <summary>
+        /// Add time to the timer and invoke the Event if the Limit is reached
+        /// </summary>
         public void AddTime(float t)
         {
             if (!IsActive) return;
@@ -43,6 +49,9 @@ namespace AgToolkit.AgToolkit.Core.Timer
             }
         }
 
+        /// <summary>
+        /// Reset the timer
+        /// </summary>
         public void ResetTime()
         {
             _CurrentTime = 0f;
@@ -69,6 +78,9 @@ namespace AgToolkit.AgToolkit.Core.Timer
             StopTimer(t, false);
         }
 
+        /// <summary>
+        /// Start a timer, register it if his not already registered
+        /// </summary>
         public void StartTimer(Timer t, bool resetBefore = true)
         {
             Register(t);
@@ -80,6 +92,9 @@ namespace AgToolkit.AgToolkit.Core.Timer
             t.IsActive = true;
         }
 
+        /// <summary>
+        /// Stop a timer, register it if his not already registered
+        /// </summary>
         public void StopTimer(Timer t, bool resetTimer = true)
         {
             Register(t);
@@ -92,20 +107,33 @@ namespace AgToolkit.AgToolkit.Core.Timer
             t.IsActive = false;
         }
 
+
+        /// <summary>
+        /// Reset a timer, register it if his not already registered
+        /// </summary>
         public void ResetTimer(Timer t)
         {
             Register(t);
             t.ResetTime();
         }
 
+
+        /// <summary>
+        /// Stop & Remove a Timers
+        /// </summary>
         public void RemoveTimer(Timer t)
         {
+            t.IsActive = false;
+
             if (_Timers.Contains(t))
-            {
+            {   
                 _Timers.Remove(t);
             }
         }
 
+        /// <summary>
+        /// Register a new Timer
+        /// </summary>
         public void Register(Timer t)
         {
             if (_Timers.Contains(t)) return;
