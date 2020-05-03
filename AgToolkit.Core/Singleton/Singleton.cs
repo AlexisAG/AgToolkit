@@ -8,7 +8,11 @@ namespace AgToolkit.AgToolkit.Core.Singleton
 		private static readonly object _Lock = new object();
 
 		private static T _Instance;
-		public static T Instance
+
+        /// <summary>
+        /// Instance of the Singleton, create the instance if it does not exists.
+        /// </summary>
+        public static T Instance
 		{
 			get
 			{
@@ -20,21 +24,20 @@ namespace AgToolkit.AgToolkit.Core.Singleton
 
 				lock (_Lock)
 				{
-					if (_Instance == null)
-					{
-						Debug.LogWarning($"[Singleton] Instance <{typeof(T)}> does not exists, creating on runtime. Prefer adding the component in Scene directly.");
+                    if (_Instance != null) return _Instance;
 
-						//create GameObject with Component
-						_Instance = new GameObject(typeof(T).Name).AddComponent<T>();
-					}
-					return _Instance;
+                    Debug.LogWarning($"[Singleton] Instance <{typeof(T)}> does not exists, creating on runtime. Prefer adding the component in Scene directly.");
+
+                    //create GameObject with Component
+                    _Instance = new GameObject(typeof(T).Name).AddComponent<T>();
+                    return _Instance;
 				}
 			}
 			private set => _Instance = value;
 		}
 		public static bool IsInstanced => _Instance != null;
 
-		protected virtual void Awake()
+        protected virtual void Awake()
 		{
 			CreateInstance();
 
