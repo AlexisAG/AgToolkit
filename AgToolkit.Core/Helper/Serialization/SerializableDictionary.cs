@@ -7,9 +7,9 @@ namespace AgToolkit.Core.Helper.Serialization
     public abstract class SerializableDictionaryBase<TKey, TValue, TValueStorage> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver
     {
         [SerializeField]
-        private TKey[] _keys;
+        private TKey[] _Keys;
         [SerializeField]
-        private TValueStorage[] _values;
+        private TValueStorage[] _Values;
 
         protected SerializableDictionaryBase()
         {
@@ -39,33 +39,33 @@ namespace AgToolkit.Core.Helper.Serialization
 
         public void OnAfterDeserialize()
         {
-            if (_keys == null) return;
-            if (_values == null) return;
-            if (_keys.Length != _values.Length) return;
+            if (_Keys == null) return;
+            if (_Values == null) return;
+            if (_Keys.Length != _Values.Length) return;
 
             Clear();
-            int n = _keys.Length;
+            int n = _Keys.Length;
             for (int i = 0; i < n; ++i)
             {
-                this[_keys[i]] = GetValue(_values, i);
+                this[_Keys[i]] = GetValue(_Values, i);
             }
 
-            _keys = null;
-            _values = null;
+            _Keys = null;
+            _Values = null;
 
         }
 
         public void OnBeforeSerialize()
         {
             int n = Count;
-            _keys = new TKey[n];
-            _values = new TValueStorage[n];
+            _Keys = new TKey[n];
+            _Values = new TValueStorage[n];
 
             int i = 0;
             foreach (KeyValuePair<TKey, TValue> kvp in this)
             {
-                _keys[i] = kvp.Key;
-                SetValue(_values, i, kvp.Value);
+                _Keys[i] = kvp.Key;
+                SetValue(_Values, i, kvp.Value);
                 ++i;
             }
         }
