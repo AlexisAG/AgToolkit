@@ -31,7 +31,10 @@ namespace AgToolkit.Core.Loader
 
 		private bool _isParsingPersistentScenesList = false;
 
-		public void AddPersistentSceneToLoad(SceneReference scene)
+        /// <summary>
+        /// Add a persistent scene 
+        /// </summary>
+        public void AddPersistentSceneToLoad(SceneReference scene)
 		{
 			if (_isParsingPersistentScenesList)
 			{
