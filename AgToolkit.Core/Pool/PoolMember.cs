@@ -19,11 +19,14 @@ namespace AgToolkit.Core.Pool
             SendBackToPool();
         }
 
-		public void SendBackToPool()
+        /// <summary>
+        /// SendBack the gameobject to his pool.
+        /// </summary>
+        public void SendBackToPool()
 		{
 			BackToPool = true;
 			Available = true;
-			//wait one frame (otherwise causes error due to setactive(false) being called the same frame as re parenting)
+            //wait one frame (otherwise causes error due to setactive(false) being called the same frame as re parenting)
 			Invoke(nameof(DelayedRattached), 0.0001f);
 		}
 

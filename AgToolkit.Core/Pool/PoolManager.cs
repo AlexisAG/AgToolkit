@@ -47,7 +47,10 @@ namespace AgToolkit.Core.Pool
 			_lock = false;
 		}
 
-		public IEnumerator CreatePool(PoolData poolData)
+        /// <summary>
+        /// Create new Pool, use it when your game is loading (OnLoad())
+        /// </summary>
+        public IEnumerator CreatePool(PoolData poolData)
 		{
 			while (_lock)
 			{
@@ -69,13 +72,19 @@ namespace AgToolkit.Core.Pool
 			_lock = false;
 		}
 
-		public PoolData GetPoolData(string identifier)
+        /// <summary>
+        /// Return PoolData (not the gameobject)
+        /// </summary>
+        public PoolData GetPoolData(string identifier)
 		{
 			Pool pool = GetPool(identifier);
 			return pool._poolData;
 		}
 
-		public void DestroyPool(string identifier)
+        /// <summary>
+        /// Destroy all gameobject of this pool and remove the pool
+        /// </summary>
+        public void DestroyPool(string identifier)
 		{
 			Debug.Assert(PoolExists(identifier), $"[{this.GetType().Name}] can't destroy pool no pools with identifier {identifier} exists.");
 			Pool pool = GetPool(identifier);
@@ -84,7 +93,7 @@ namespace AgToolkit.Core.Pool
 			_pools.Remove(pool);
 		}
 
-		private void DestroyAllPools()
+        private void DestroyAllPools()
 		{
 			foreach (Pool p in _pools)
 			{
