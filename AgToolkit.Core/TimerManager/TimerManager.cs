@@ -13,9 +13,9 @@ namespace AgToolkit.AgToolkit.Core.Timer
         private string _Id;
         private float _Limit;
         private float _CurrentTime;
-        private UnityEvent _Event;
 
-        public UnityEvent Event => _Event;
+        public UnityEvent Event { get; }
+
         public bool IsActive = false;
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace AgToolkit.AgToolkit.Core.Timer
             _Id = id;
             _Limit = limit;
             _CurrentTime = 0f;
-            _Event = e;
+            Event = e;
 
             if (TimerManager.IsInstanced)
             {
