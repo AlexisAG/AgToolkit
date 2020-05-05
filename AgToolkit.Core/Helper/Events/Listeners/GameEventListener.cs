@@ -8,18 +8,9 @@ namespace AgToolkit.Core.Helper.Events.Listeners
 		[SerializeField]
 		private IGameEvent _Event = null;
 
+		private UnityEvent _Callbacks;
+
 		public IGameEvent Event => _Event;
-
-		public UnityEvent Callbacks;
-
-        /// <summary>
-        /// Call the UnityEvent if the GameEvent raise is the GameEvent listened. 
-        /// </summary>
-        public void OnEventRaised(IGameEvent gameEvent)
-        {
-            if (gameEvent != Event) return;
-			Callbacks.Invoke();
-		}
 
 		private void OnEnable()
 		{
@@ -37,6 +28,20 @@ namespace AgToolkit.Core.Helper.Events.Listeners
         {
             Event?.UnregisterListener(this);
 		}
-	}
 
+        /// <summary>
+        /// Call the UnityEvent if the GameEvent raise is the GameEvent listened. 
+        /// </summary>
+        public void OnEventRaised(IGameEvent gameEvent)
+        {
+            if (gameEvent != Event) return;
+            _Callbacks.Invoke();
+		}
+
+        public void Init(IGameEvent e, UnityEvent callback)
+        {
+            _Event = e;
+            _Callbacks = callback;
+        }
+    }
 }

@@ -8,20 +8,11 @@ namespace AgToolkit.Core.Helper.Events.Listeners
 		where UE : UnityEvent<T>
 	{
 		[SerializeField]
-		private GE _event = default;
+		private GE _Event = default;
 
-		public IGameEvent<T> Event => _event;
+        private UE _Callbacks;
 
-		[SerializeField]
-		public UE Callbacks;
-		//keep public otherwise unity editor does not isplay dynamic calls...
-
-
-		public void OnEventRaised(IGameEvent<T> gameEvent)
-		{
-			Callbacks.Invoke(gameEvent.Param);
-		}
-
+		public IGameEvent<T> Event => _Event;
 		private void OnEnable()
 		{
 			if (Event == null)
@@ -38,7 +29,14 @@ namespace AgToolkit.Core.Helper.Events.Listeners
 		{
 			Event?.UnregisterListener(this);
 		}
-	}
 
-
+		public void OnEventRaised(IGameEvent<T> gameEvent)
+		{
+			_Callbacks.Invoke(gameEvent.Param);
+		}
+        public void Init(GE e, UE callback) {
+            _Event = e;
+            _Callbacks = callback;
+        }
+    }
 }
