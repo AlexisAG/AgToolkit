@@ -1,13 +1,15 @@
+using System;
 using AgToolkit.Core.Helper.Events;
 using UnityEngine;
 
 namespace AgToolkit.Core.Helper.GameVars
 {
-	public abstract class GameVar : ScriptableObject
+	public abstract class GameVar
 	{
 		public abstract void FillGameEvent(GameEvent evt);
 	}
 
+    [Serializable]
 	public class GameVar<T> : GameVar
 	{
 		public T Value;
