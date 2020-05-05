@@ -12,6 +12,10 @@ namespace AgToolkit.Core.Helper.GameVars
 	{
 		public T Value;
 
+        /// <summary>
+        /// Fill the game event with this GameVar
+        /// </summary>
+        /// <param name="evt">GameEvent to fill</param>
 		public override void FillGameEvent(GameEvent evt)
 		{
 			GameEvent<T> tEvt = evt as GameEvent<T>;

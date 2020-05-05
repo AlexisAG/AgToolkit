@@ -14,16 +14,18 @@ namespace AgToolkit.Core.Helper
 		private GameEvent Event = null;
 
 		[SerializeField]
-		public GameVar EventParam = null;
+		private GameVar _Param = null;
 
-
+        /// <summary>
+        /// Fill the GameEvent with the GameVar and trigger the GameEvent.
+        /// </summary>
 		public void Trigger()
 		{
 			Debug.Assert(Event != null, "No GameEvent To Trigger");
 
-			if (EventParam != null)
+			if (_Param != null)
 			{
-				EventParam.FillGameEvent(Event);
+				_Param.FillGameEvent(Event);
 			}
 			Event.Raise();
 		}

@@ -6,14 +6,18 @@ namespace AgToolkit.Core.Helper.Events.Listeners
 	public class GameEventListener : MonoBehaviour, IGameEventListener
 	{
 		[SerializeField]
-		private GameEvent _event = null;
+		private IGameEvent _Event = null;
 
-		public IGameEvent Event => _event;
+		public IGameEvent Event => _Event;
 
 		public UnityEvent Callbacks;
 
+        /// <summary>
+        /// Call the UnityEvent if the GameEvent raise is the GameEvent listened. 
+        /// </summary>
         public void OnEventRaised(IGameEvent gameEvent)
-		{
+        {
+            if (gameEvent != Event) return;
 			Callbacks.Invoke();
 		}
 
@@ -30,8 +34,8 @@ namespace AgToolkit.Core.Helper.Events.Listeners
 		}
 
 		private void OnDisable()
-		{
-			Event?.UnregisterListener(this);
+        {
+            Event?.UnregisterListener(this);
 		}
 	}
 
