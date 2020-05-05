@@ -11,23 +11,29 @@ namespace AgToolkit.Core.Helper
 	public class GameEventTrigger : MonoBehaviour
 	{
 		[SerializeField]
-		private GameEvent Event = null;
+		private GameEvent _Event = null;
 
 		[SerializeField]
 		private GameVar _Param = null;
+
+        public void Init(GameEvent ge, GameVar param)
+        {
+            _Event = ge;
+            _Param = param;
+        }
 
         /// <summary>
         /// Fill the GameEvent with the GameVar and trigger the GameEvent.
         /// </summary>
 		public void Trigger()
 		{
-			Debug.Assert(Event != null, "No GameEvent To Trigger");
+			Debug.Assert(_Event != null, "No GameEvent To Trigger");
 
 			if (_Param != null)
 			{
-				_Param.FillGameEvent(Event);
+				_Param.FillGameEvent(_Event);
 			}
-			Event.Raise();
+            _Event.Raise();
 		}
 
 	}
