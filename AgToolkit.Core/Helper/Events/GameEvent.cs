@@ -5,7 +5,8 @@ using UnityEngine;
 
 namespace AgToolkit.Core.Helper.Events
 {
-	public class GameEvent : IGameEvent
+    [CreateAssetMenu(menuName = "AgToolkit/GameEvents/GameEvent", fileName = "NewGameEvent")]
+    public class GameEvent : ScriptableObject, IGameEvent
 	{
 		[NonSerialized]
 		internal List<IGameEventListener> Listeners = new List<IGameEventListener>();
