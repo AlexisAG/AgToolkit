@@ -38,6 +38,10 @@ namespace AgToolkit.Core.Helper.Events.Listeners
             _Callbacks.Invoke();
 		}
 
+
+        /// <summary>
+        /// Set the GameEvent & the UnityEvent callback
+        /// </summary>
         public void Init(IGameEvent e, UnityEvent callback)
         {
             _Event = e;

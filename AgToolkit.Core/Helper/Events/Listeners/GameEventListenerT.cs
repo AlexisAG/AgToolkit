@@ -30,10 +30,18 @@ namespace AgToolkit.Core.Helper.Events.Listeners
 			Event?.UnregisterListener(this);
 		}
 
-		public void OnEventRaised(IGameEvent<T> gameEvent)
+        /// <summary>
+        /// Call the UnityEvent if the GameEvent raise is the GameEvent listened. 
+        /// </summary>
+        public void OnEventRaised(IGameEvent<T> gameEvent)
 		{
-			_Callbacks.Invoke(gameEvent.Param);
+            if (gameEvent != Event) return;
+            _Callbacks.Invoke(gameEvent.Param);
 		}
+
+        /// <summary>
+        /// Set the GameEvent & the UnityEvent callback
+        /// </summary>
         public void Init(GE e, UE callback) {
             _Event = e;
             _Callbacks = callback;
