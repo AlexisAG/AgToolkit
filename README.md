@@ -18,6 +18,11 @@ It was built to simplify development with the Unity 3D game engine.
 * **Master** is the lastest [Milestone](https://github.com/AlexisAG/AgToolkit/milestones) released.
 * **Dev** has all new features and bug fixes but may be unstable. I do **not** recommend to use it without **tag**.
 
+## Documentation
+
+* The **core module** implements many features that can be used in all types of projects. You can find the **documentation** [here](/AgToolkit.Core/core.md)
+* The **network module** implements many features for projects requiring a multiplayer mode. Inside this module, you can find different implementations (like Network.Photon) or simply use the network module to create your implementation with another library. For now there is no **documentation**.
+
 ## Community and support
 
 If you'd like to discuss your issues or ideas to improve this toolkit, you can **[create an issue](https://github.com/AlexisAG/AgToolkit/issues/new/choose)** on this project.
