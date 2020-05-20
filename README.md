@@ -20,7 +20,7 @@ It was built to simplify development with the Unity 3D game engine.
 
 ## Documentation
 
-* The **core module** implements many features that can be used in all types of projects. You can find the **documentation** [here](/AgToolkit.Core/core.md)
+* The **core module** implements many features that can be used in all types of projects. You can find the **documentation** [here](/AgToolkit.Core/README.md)
 * The **network module** implements many features for projects requiring a multiplayer mode. Inside this module, you can find different implementations (like Network.Photon) or simply use the network module to create your implementation with another library. For now there is no **documentation**.
 
 ## Community and support
