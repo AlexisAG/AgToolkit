@@ -66,7 +66,39 @@ public class TaskManager : Singleton<TaskManager>
 
 ## Pool
 
-todo
+The object pool pattern is a software creational design pattern that uses a set of initialized objects kept ready to use – a "pool" – rather than allocating and destroying them on demand. A client of the pool will request an object from the pool and perform operations on the returned object. When the client has finished, it returns the object to the pool rather than destroying it.
+
+This toolkit provide a pool system. You can use it through the singleton **PoolManager**.
+As a *Singleton*, it's recommended to attach the **PoolManager** on a gameobject (see [Singleton doc](#singleton)).
+
+There is 2 ways to **create a pool**. 
+
+1. From the Unity editor on the gameobject with the **PoolManager** script attached. (see the screenshot below)
+⋅⋅* ![Create Pool Example](/Documentation/Images/AddPoolFromEditor.JPG)
+2. From Script : ``yield return PoolManager.Instance.CreatePool(new PoolData("fake", prefab, 50, true, true));``
+
+**PoolData properties**:
+
+1. *poolId*: String -> The identificator of this pool
+2. *prefab*: GameObject -> The prefab to instantiate
+3. *amount*: Int -> Number of the prefab that will be instantiated 
+4. *expandable*: Bool -> If true, the amount will be increase if you try to access to a pool with no pooled object available.
+5. *autoSendBack*: Bool -> If true, the pooled object will be send back to his pool when the gameobject will be desactivated. (True is recommended)
+
+**How to use a pooled object**:
+
+```cs
+  /// get a pooled object
+  GameObject pooledObj = PoolManager.Instance.GetPooledObject("fake");
+  // config all data of the object...
+  poolObj.transform.SetParent(yourchoice); //Don't forget to move the gameobject outside of his pool
+  poolObj.SetActive(true); 
+  
+  /// deactive a pooled object
+  // reset all data of the object...
+  poolObj.SetActive(false);
+  poolObj.SetParent(ThePool); // do that only if the *autoSendBack* param is false
+```
 
 ## Loader
 
