@@ -33,4 +33,4 @@ If you'd like to discuss your issues or ideas to improve this toolkit, you can *
 
 ## License
 
-MIT
+[MIT](LICENSE)
