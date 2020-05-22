@@ -6,7 +6,7 @@ using UnityEngine;
 
 #endif
 
-namespace AgToolkit.Core.Loader
+namespace AgToolkit.Core.Helper
 {
 	[Serializable]
 	public sealed class SceneReference : ISerializationCallbackReceiver
