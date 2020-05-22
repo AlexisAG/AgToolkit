@@ -66,7 +66,7 @@ public class TaskManager : Singleton<TaskManager>
 
 ## Pool
 
-The object pool pattern is a software creational design pattern that uses a set of initialized objects kept ready to use – a "pool" – rather than allocating and destroying them on demand. A client of the pool will request an object from the pool and perform operations on the returned object. When the client has finished, it returns the object to the pool rather than destroying it.
+The object pool pattern is a software creational design pattern that uses a set of initialized objects kept ready to use a "pool" rather than allocating and destroying them on demand. A client of the pool will request an object from the pool and perform operations on the returned object. When the client has finished, it returns the object to the pool rather than destroying it.
 
 This toolkit provide a pool system. You can use it through the singleton **PoolManager**.
 As a *Singleton*, it's recommended to attach the **PoolManager** on a gameobject (see [Singleton doc](#singleton)).
@@ -74,7 +74,7 @@ As a *Singleton*, it's recommended to attach the **PoolManager** on a gameobject
 There is 2 ways to **create a pool**. 
 
 1. From the Unity editor on the gameobject with the **PoolManager** script attached. (see the screenshot below)
-⋅⋅* ![Create Pool Example](/Documentation/Images/AddPoolFromEditor.JPG)
+ ![Create Pool Example](/Documentation/Images/AddPoolFromEditor.JPG)
 2. From Script : ``yield return PoolManager.Instance.CreatePool(new PoolData("fake", prefab, 50, true, true));``
 
 **PoolData properties**:
@@ -102,7 +102,34 @@ There is 2 ways to **create a pool**.
 
 ## Loader
 
-todo
+This toolkit provide a **Loader** to load one or more *Scene* with a *loading scene* and a *lightning scene* in your project. This **Loader** can have multiple *persistent scene* and a default *Loading Scene*. You can use it through the singleton **SceneLoaderManager**.
+
+As a *Singleton*, it's recommended to attach the **PoolManager** on a gameobject (see [Singleton doc](#singleton)).
+
+This toolkit provide a **SceneContent** which is a *ScriptableObject*. In fact, the *SceneLoaderManager* use a *SceneContent*.
+
+To create *SceneContent* follow the steps below:
+
+1. Right click in your **Project window**.
+2. Select **SceneContent** in the AgToolkit tab.
+
+![Create SceneContent](/Documentation/Images/CreateSceneContent.jpg)
+
+**SceneContent properties**
+
+![SceneContent Properties](/Documentation/Images/SceneContentProperties.jpg)
+
+* LoadingScene: This is the scene that will be displayed during the loading of *ContentScenes*. It can be null but if it's not null, it will override the *DefaultLoadingScene* of the **SceneLoaderManager**.
+* ContentScenes: An array of scene, a scene is required minimum.
+* LightningScene: This is the scene with the lightning system, it can be null.
+
+**SceneLoaderManager properties**:
+
+![SceneLoaderManager Properties](/Documentation/Images/SceneLoaderManager.jpg)
+
+* DefaultLoadingScene: Default loading scene when a *SceneContent* is loaded. if the current *SceneContent* has a *LoadingScene*, the *DefaultLoadingScene* will not be used.
+* AdditionalPersistentScenes: Additional scenes that will be persistent. It can be empty.
+* MinLoadTimeSec: Represents the minimum loading time. If the current loading time is less than this, the *SceneLoaderManager* will wait until the time is greater than or equal to it. 
 
 
 ## GameMode
