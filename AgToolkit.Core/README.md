@@ -5,7 +5,7 @@ The **core module** implements many features that can be used in all types of pr
 * [Loader](#loader)
 * [GameMode](#gamemode)
 * [Helper](#helper)
-* [TimeManager](#timemanager)
+* [TimerManager](#timermanager)
 
 
 ## Singleton
@@ -142,6 +142,6 @@ todo
 todo
 
 
-## TimeManager
+## TimerManager
 
 todo
