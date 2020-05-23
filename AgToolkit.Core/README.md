@@ -1,3 +1,5 @@
+# Core module documentation
+
 The **core module** implements many features that can be used in all types of projects. Here is the list and documentation for all of the features provived.
 
 * [Singleton](#singleton)
