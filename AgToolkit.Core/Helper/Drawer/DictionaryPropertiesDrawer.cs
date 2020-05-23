@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace AgToolkit.Core.Helper.Drawer
 {
-
+#if UNITY_EDITOR
     //source: https://github.com/azixMcAze/Unity-SerializableDictionary/blob/master/Assets/SerializableDictionary/Editor/SerializableDictionaryPropertyDrawer.cs
     public class SerializableDictionaryPropertyDrawer : PropertyDrawer
     {
@@ -511,4 +511,5 @@ namespace AgToolkit.Core.Helper.Drawer
             return EditorGUI.GetPropertyHeight(property);
         }
     }
+#endif
 }

@@ -2,10 +2,6 @@ using System;
 using UnityEditor;
 using UnityEngine;
 
-#if UNITY_EDITOR
-
-#endif
-
 namespace AgToolkit.Core.Helper
 {
 	[Serializable]
@@ -37,11 +33,10 @@ namespace AgToolkit.Core.Helper
 #else
 				// At runtime we rely on the stored path value which we assume was serialized correctly at build time.
 				// See OnBeforeSerialize and OnAfterDeserialize
-				scenePath;
+				_scenePath;
 #endif
 
-			set
-			{
+            set {
 				_scenePath = value;
 #if UNITY_EDITOR
 				_sceneAsset = GetSceneAssetFromPath();
