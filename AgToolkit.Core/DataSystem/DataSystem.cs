@@ -9,6 +9,8 @@ namespace AgToolkit.AgToolkit.Core.DataSystem
 {
     public class DataSystem : Singleton<DataSystem>
     {
+        #region Asset Bundle
+
         /// <summary>
         /// Load local assetbundle synchronous
         /// </summary>
@@ -43,6 +45,27 @@ namespace AgToolkit.AgToolkit.Core.DataSystem
             yield return assetRequest;
 
             callback(assetRequest.allAssets.Cast<T>().ToList() ); // return data in the callback
+            localAssetBundle.Unload(false);
         }
+
+        /// <summary>
+        /// Load assetBundle from web url and return data in the callback 
+        /// </summary>
+        public IEnumerator LoadBundleFromWeb<T>(string url, System.Action<List<T>> callback) where T : Object
+        {
+            using (WWW web = new WWW(url))
+            {
+                yield return web;
+                AssetBundle remoAssetBundle = web.assetBundle;
+
+                Debug.Assert(remoAssetBundle != null, $"There is no AssetBundle at {url}");
+                if (remoAssetBundle == null) yield break;
+
+                callback(remoAssetBundle.LoadAllAssets<T>().ToList());
+                remoAssetBundle.Unload(false);
+            }
+        }
+
+        #endregion
     }
 }
