@@ -4,6 +4,8 @@ The **core module** implements many features that can be used in all types of pr
 
 * [Singleton](#singleton)
 * [Pool](#pool)
+* [Editor](#editor)
+* [DataSystem](#datasystem)
 * [Loader](#loader)
 * [GameMode](#gamemode)
 * [Helper](#helper)
@@ -101,6 +103,14 @@ There is 2 ways to **create a pool**.
   poolObj.SetActive(false);
   poolObj.SetParent(ThePool); // do that only if the *autoSendBack* param is false
 ```
+
+## Editor
+
+todo
+
+## DataSystem
+
+todo
 
 ## Loader
 
