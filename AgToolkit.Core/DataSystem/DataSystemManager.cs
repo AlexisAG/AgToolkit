@@ -19,7 +19,10 @@ namespace AgToolkit.AgToolkit.Core.DataSystem
             AssetBundle localAssetBundle = AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath, bundleName));
             
             Debug.Assert(localAssetBundle != null, $"There is no AssetBundle with {bundleName} name.");
-            if (localAssetBundle == null) return null;
+            if (localAssetBundle == null)
+            {
+                return new List<T>();
+            }
 
             List<T> data = localAssetBundle.LoadAllAssets<T>().ToList();
             localAssetBundle.Unload(false);
@@ -39,7 +42,11 @@ namespace AgToolkit.AgToolkit.Core.DataSystem
             AssetBundle localAssetBundle = asyncRequest.assetBundle;
 
             Debug.Assert(localAssetBundle != null, $"There is no AssetBundle with {bundleName} name.");
-            if (localAssetBundle == null) yield break;
+            if (localAssetBundle == null)
+            {
+                callback(new List<T>());
+                yield break;
+            }
 
             AssetBundleRequest assetRequest = localAssetBundle.LoadAllAssetsAsync<T>();
             yield return assetRequest;
@@ -59,7 +66,11 @@ namespace AgToolkit.AgToolkit.Core.DataSystem
                 AssetBundle remoAssetBundle = web.assetBundle;
 
                 Debug.Assert(remoAssetBundle != null, $"There is no AssetBundle at {url}");
-                if (remoAssetBundle == null) yield break;
+                if (remoAssetBundle == null)
+                {
+                    callback(new List<T>());
+                    yield break;
+                }
 
                 callback(remoAssetBundle.LoadAllAssets<T>().ToList());
                 remoAssetBundle.Unload(false);
