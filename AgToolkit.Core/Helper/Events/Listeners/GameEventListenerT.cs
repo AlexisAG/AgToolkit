@@ -45,6 +45,8 @@ namespace AgToolkit.Core.Helper.Events.Listeners
         public void Init(GE e, UE callback) {
             _Event = e;
             _Callbacks = callback;
+            Debug.LogWarning($"[GameEventListener] GameEvent & UnityEvent has been set.");
+
         }
     }
 }
