@@ -2,35 +2,38 @@
 using UnityEditor;
 using UnityEngine;
 
-public class AssetBundlesCreation
+namespace AgToolkit.AgToolkit.Core.Editor
 {
-#if UNITY_EDITOR
-    private static string _AssetBundleDirectory = "Assets/StreamingAssets";
-
-    [MenuItem("Assets/Create/AgToolkit/AssetBundle/CreateBundleName")]
-    public static void CreateBundleName() 
+    public class AssetBundlesCreation
     {
-        string dirPath = AssetDatabase.GetAssetPath(Selection.GetFiltered<Object>(SelectionMode.Assets)[0]);
+    #if UNITY_EDITOR
+        private static string _AssetBundleDirectory = "Assets/StreamingAssets";
 
-        if (string.IsNullOrEmpty(dirPath)) return;
-
-        string dirName = new DirectoryInfo(dirPath).Name;
-
-        foreach (string asset in Directory.GetFiles(dirPath, "*.asset"))
+        [MenuItem("Assets/Create/AgToolkit/AssetBundle/CreateBundleName")]
+        public static void CreateBundleName() 
         {
-            AssetImporter.GetAtPath(asset).assetBundleName = dirName;
-        }
-    }
+            string dirPath = AssetDatabase.GetAssetPath(Selection.GetFiltered<Object>(SelectionMode.Assets)[0]);
 
-    [MenuItem("AgToolkit/AssetBundle/Build")]
-    public static void BuildAllAssetBundles()
-    {
-        if (!Directory.Exists(Application.streamingAssetsPath))
-        {
-            Directory.CreateDirectory(_AssetBundleDirectory);
+            if (string.IsNullOrEmpty(dirPath)) return;
+
+            string dirName = new DirectoryInfo(dirPath).Name;
+
+            foreach (string asset in Directory.GetFiles(dirPath, "*.asset"))
+            {
+                AssetImporter.GetAtPath(asset).assetBundleName = dirName;
+            }
         }
 
-        BuildPipeline.BuildAssetBundles(_AssetBundleDirectory, BuildAssetBundleOptions.None, EditorUserBuildSettings.activeBuildTarget);
+        [MenuItem("AgToolkit/AssetBundle/Build")]
+        public static void BuildAllAssetBundles()
+        {
+            if (!Directory.Exists(Application.streamingAssetsPath))
+            {
+                Directory.CreateDirectory(_AssetBundleDirectory);
+            }
+
+            BuildPipeline.BuildAssetBundles(_AssetBundleDirectory, BuildAssetBundleOptions.None, EditorUserBuildSettings.activeBuildTarget);
+        }
+    #endif
     }
-#endif
 }
