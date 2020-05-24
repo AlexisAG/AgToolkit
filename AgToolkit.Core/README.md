@@ -106,7 +106,30 @@ There is 2 ways to **create a pool**.
 
 ## Editor
 
-todo
+This toolkit provides an easy way to configure and build an **AssetBundle**.
+
+**Setup data for asset bundle**
+
+1. Create all your data in a folder (eg: All your scriptable object *building*).
+
+![Data For AssetBundle Example](/Documentation/Images/DataInFolder.JPG)
+
+2. Right click on the folder.
+3. Create -> AgToolkit -> AssetBundle -> CreateBundleName (See below).
+
+ ![Create AssetBundle Name Example](/Documentation/Images/CreateBundleName.jpg)
+
+All asset in the directory will be added to a new (or existing) assetbundle with the *directory name* (in lower case).
+
+ ![Asset With AssetBundle Example](/Documentation/Images/AssetBundleNameSet.JPG)
+
+**Build all AssetBundles**
+
+ ![Build All AssetBundle Example](/Documentation/Images/BuildAssetBundle.jpg)
+
+AssetBundle will be integrated into *Assets/StreamingAssets/*. If the path does not exist, the Toolkit will create it.
+
+To load your AssetBundle data see the [DataSystem](#datasystem) documentation.
 
 ## DataSystem
 
