@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace AgToolkit.AgToolkit.Core.BackupSystem
+namespace AgToolkit.AgToolkit.Core.DataSystem
 {
     public interface IBackup
     {
