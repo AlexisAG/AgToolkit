@@ -133,13 +133,83 @@ To load your AssetBundle data see the [DataSystem](#datasystem) documentation.
 
 ## DataSystem
 
-todo
+This toolkit provide a **DataSystem** to save or load data for your your project.
+As a *Singleton*, it's recommended to attach the **DataSystemManager** on a gameobject (see [Singleton doc](#singleton)).
+
+**Load AssetBundle**
+
+When you call the **DataSystemManager** to load your *AssetBundle* it will always return a `List<T>`. This *List* can be empty if no *AssetBundle* has been found.
+
+1. Local *AssetBundle*:
+  
+  There is 2 ways to load your local *AssetBundle*. 
+  
+  * Async method:
+  
+  ```cs 
+  public IEnumerator LoadLocalBundleAsync<T>(string bundleName, System.Action<List<T>> callback) where T : Object
+  ```
+  
+*LoadLocalBundleAsync* takes 2 arguments, the name of the bundle you want to load and the callback to call when the data is loaded.
+  
+  ```cs
+  // How to use the LoadLocalBundleAsync method
+  [SerializeField]
+  string _BundleName = "buildings";
+  
+  public IEnumerator Load()
+  {
+    List<Building> _Buildings = null;
+    yield return DataSystemManager.Instance.LoadLocalBundleAsync<Building>(_BundleName, data => _Buildings = data);  
+  }
+  ```
+ 
+  * Sync method: 
+  
+  ```cs
+  public List<T> LoadLocalBundleSync<T>(string bundleName) where T : Object
+  ```
+  
+  *LoadLocalBundleSync* takes 1 argument, the name of the bundle. This method is not recommended if you have a lot of data in your *AssetBundle*.
+  
+  ```cs
+  // How to use the LoadLocalBundleSync method
+  [SerializeField]
+  string _BundleName = "buildings";
+  
+  public void Load() 
+  {
+    List<Building> _Buildings = DataSystemManager.Instance.LoadLocalBundleSync<Building>(_BundleName);
+  }
+  ```
+
+2. *AssetBundle* from Web
+
+You can load *AssetBundle* from web only in *Async*. 
+
+```cs
+public IEnumerator LoadBundleFromWeb<T>(string url, System.Action<List<T>> callback) where T : Object
+``` 
+
+*LoadLocalBundleAsync* takes 2 arguments, the URL of the bundle you want to load and the callback to call when the data is loaded.
+  
+  ```cs
+  // How to use the LoadLocalBundleAsync method
+  [SerializeField]
+  string _BundleName = "buildings";
+  
+  public IEnumerator Load()
+  {
+    List<Building> _Buildings = null;
+    yield return DataSystemManager.Instance.LoadBundleFromWeb<Building>(_BundleName, data => _Buildings = data);  
+  }
+  ```
 
 ## Loader
 
 This toolkit provide a **Loader** to load one or more *Scene* with a *loading scene* and a *lightning scene* in your project. This **Loader** can have multiple *persistent scene* and a default *Loading Scene*. You can use it through the singleton **SceneLoaderManager**.
 
-As a *Singleton*, it's recommended to attach the **PoolManager** on a gameobject (see [Singleton doc](#singleton)).
+As a *Singleton*, it's recommended to attach the **SceneLoaderManager** on a gameobject (see [Singleton doc](#singleton)).
 
 This toolkit provide a **SceneContent** which is a *ScriptableObject*. In fact, the *SceneLoaderManager* use a *SceneContent*.
 
