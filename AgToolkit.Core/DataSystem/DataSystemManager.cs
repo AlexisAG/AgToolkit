@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace AgToolkit.AgToolkit.Core.DataSystem
 {
-    public class DataSystem : Singleton<DataSystem>
+    public class DataSystemManager : Singleton<DataSystemManager>
     {
         #region Asset Bundle
 
