@@ -98,8 +98,7 @@ namespace AgToolkit.Core.Loader
 
 			Debug.Log(string.Format("[Loading] took {0:00} ms", (Time.realtimeSinceStartup - startLoadingTime) * 1000));
 			//wait the minimum time
-			yield return new WaitUntil(() => _minLoadTimeSec <= (Time.realtimeSinceStartup - startLoadingTime));
-
+            yield return new WaitUntil(() => _minLoadTimeSec <= (Time.realtimeSinceStartup - startLoadingTime) * 1000);
 			yield return InvokeActions(OnFadeOut, true);
 
 			//finally unload loading scene
