@@ -136,11 +136,11 @@ To load your AssetBundle data see the [DataSystem](#datasystem) documentation.
 This toolkit provide a **DataSystem** to save or load data for your your project.
 As a *Singleton*, it's recommended to attach the **DataSystemManager** on a gameobject (see [Singleton doc](#singleton)).
 
-**Load AssetBundle**
+### Load AssetBundle
 
 When you call the **DataSystemManager** to load your *AssetBundle* it will always return a `List<T>`. This *List* can be empty if no *AssetBundle* has been found.
 
-1. Local *AssetBundle*:
+**Local *AssetBundle***:
   
   There is 2 ways to load your local *AssetBundle*. 
   
@@ -183,7 +183,7 @@ When you call the **DataSystemManager** to load your *AssetBundle* it will alway
   }
   ```
 
-2. *AssetBundle* from Web
+***AssetBundle* from Web**:
 
 You can load *AssetBundle* from web only in *Async*. 
 
