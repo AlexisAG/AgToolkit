@@ -9,7 +9,7 @@ namespace AgToolkit.AgToolkit.Core.DataSystem
 {
     public class DataSystemManager
     {
-        private static List<AssetBundle> _BundleLoaded = new List<AssetBundle>();
+        private static Dictionary<string, AssetBundle> _BundleLoaded = new Dictionary<string, AssetBundle>();
 
         #region Asset Bundle
         /// <summary>
@@ -26,6 +26,7 @@ namespace AgToolkit.AgToolkit.Core.DataSystem
             }
 
             List<T> data = localAssetBundle.LoadAllAssets<T>().ToList();
+            _BundleLoaded.Add(bundleName, localAssetBundle);
 
             return data;
         }
@@ -51,22 +52,9 @@ namespace AgToolkit.AgToolkit.Core.DataSystem
             AssetBundleRequest assetRequest = localAssetBundle.LoadAllAssetsAsync<T>();
             yield return assetRequest;
 
+            _BundleLoaded.Add(bundleName, localAssetBundle);
             callback(assetRequest.allAssets.Cast<T>().ToList() ); // return data in the callback
-            _BundleLoaded.Add(localAssetBundle);
         }
-
-        public static void UnloadAssetBundles(bool destroyGameObject = false)
-        {
-            foreach (AssetBundle ab in _BundleLoaded)
-            {
-                ab.Unload(destroyGameObject);
-            }
-
-            Debug.LogError("I AM CLEAN");
-            _BundleLoaded.Clear();
-        }
-
-
 
         /// <summary>
         /// Load assetBundle from web url and return data in the callback 
@@ -85,8 +73,37 @@ namespace AgToolkit.AgToolkit.Core.DataSystem
                     yield break;
                 }
 
+
+                _BundleLoaded.Add(url, remoAssetBundle);
                 callback(remoAssetBundle.LoadAllAssets<T>().ToList());
             }
+        }
+
+        /// <summary>
+        /// Unload all AssetBundle
+        /// </summary>
+        /// <param name="destroyGameObject">Destroy all reference of the asset</param>
+        public static void UnloadAllAssetBundles(bool destroyGameObject = false) 
+        {
+            foreach (AssetBundle ab in _BundleLoaded.Values) 
+            {
+                ab.Unload(destroyGameObject);
+            }
+
+            _BundleLoaded.Clear();
+        }
+
+        /// <summary>
+        /// Unload the AssetBundle
+        /// </summary>
+        /// <param name="name">Name or Url of the AssetBundle</param>
+        /// <param name="destroyGameObject">Destroy all reference of the asset</param>
+        public static void UnloadAssetBundle(string bundle, bool destroyGameObject = false)
+        {
+            if (!_BundleLoaded.ContainsKey(bundle)) return;
+
+            _BundleLoaded[bundle].Unload(destroyGameObject);
+            _BundleLoaded.Remove(bundle);
         }
 
         #endregion

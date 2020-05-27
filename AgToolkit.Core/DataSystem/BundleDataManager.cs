@@ -5,6 +5,7 @@ using System.Linq;
 using AgToolkit.AgToolkit.Core.DataSystem;
 using AgToolkit.AgToolkit.Core.Singleton;
 using AgToolkit.Core.Helper;
+using UnityEditor.Profiling.Memory.Experimental;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -12,9 +13,11 @@ namespace AgToolkit.AgToolkit.Core.DataSystem
 {
     public class BundleDataManager : Singleton<BundleDataManager>, IBackup
     {
-
         [SerializeField]
-        private List<string> _AssetBundleNames = new List<string>();
+        private bool _CleanMemoryAfterOnLoad = true;
+
+        [SerializeField, Tooltip("Can be a name or an URL.")]
+        private List<string> _AssetBundles = new List<string>();
 
         private Dictionary<string, List<Object>> _BundleData = new Dictionary<string, List<Object>>();
         protected override void Awake()
@@ -27,7 +30,7 @@ namespace AgToolkit.AgToolkit.Core.DataSystem
         /// Get BundleData
         /// </summary>
         /// <typeparam name="T">Data type</typeparam>
-        /// <param name="bundleName">Bundle name</param>
+        /// <param name="bundleName">Name or Url</param>
         /// <returns></returns>
         public List<T> GetBundleData<T>(string bundleName)
         {
@@ -40,10 +43,28 @@ namespace AgToolkit.AgToolkit.Core.DataSystem
             return _BundleData[bundleName].Cast<T>().ToList();
         }
 
-        public void ClearBundlesLoaded()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="destroyGameObject">Destroy all reference of the asset</param>
+        public void ClearAllBundlesLoaded(bool destroyGameObject = false)
         {
             _BundleData.Clear();
-            DataSystemManager.UnloadAssetBundles();
+            DataSystemManager.UnloadAllAssetBundles(destroyGameObject);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bundle">Name or Url</param>
+        /// <param name="destroyGameObject">Destroy all reference of the asset</param>
+        public void UnloadBundleLoaded(string bundle, bool destroyGameObject = false)
+        {
+            if (!_BundleData.ContainsKey(bundle)) return;
+
+
+            DataSystemManager.UnloadAssetBundle(bundle, destroyGameObject);
+            _BundleData.Remove(bundle);
         }
 
         public IEnumerator Save()
@@ -53,10 +74,19 @@ namespace AgToolkit.AgToolkit.Core.DataSystem
 
         public IEnumerator Load()
         {
-            foreach (string name in _AssetBundleNames)
+            foreach (string name in _AssetBundles)
             {
-                yield return DataSystemManager.LoadLocalBundleAsync<Object>(name, list => _BundleData.Add(name, list));
+                if (Uri.IsWellFormedUriString(name, UriKind.Absolute))
+                {
+                    yield return DataSystemManager.LoadBundleFromWeb<Object>(name, list => _BundleData.Add(name, list));
+                }
+                else
+                {
+                    yield return DataSystemManager.LoadLocalBundleAsync<Object>(name, list => _BundleData.Add(name, list));
+                }
             }
+
+            if(_CleanMemoryAfterOnLoad) DataSystemManager.UnloadAllAssetBundles();
         }
     }
 }
