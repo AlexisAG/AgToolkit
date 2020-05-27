@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace AgToolkit.Core.Helper.Serialization
 {
-#if UNITY_EDITOR
     public abstract class SerializableDictionaryBase<TKey, TValue, TValueStorage> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver
     {
         [SerializeField]
@@ -128,5 +127,4 @@ namespace AgToolkit.Core.Helper.Serialization
             };
         }
     }
-#endif
 }
