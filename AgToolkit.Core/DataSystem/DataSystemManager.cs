@@ -7,14 +7,15 @@ using UnityEngine;
 
 namespace AgToolkit.AgToolkit.Core.DataSystem
 {
-    public class DataSystemManager : Singleton<DataSystemManager>
+    public class DataSystemManager
     {
-        #region Asset Bundle
+        private static List<AssetBundle> _BundleLoaded = new List<AssetBundle>();
 
+        #region Asset Bundle
         /// <summary>
         /// Load local assetbundle synchronous
         /// </summary>
-        public List<T> LoadLocalBundleSync<T>(string bundleName) where T : Object
+        public static List<T> LoadLocalBundleSync<T>(string bundleName) where T : Object
         {
             AssetBundle localAssetBundle = AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath, bundleName));
             
@@ -25,7 +26,6 @@ namespace AgToolkit.AgToolkit.Core.DataSystem
             }
 
             List<T> data = localAssetBundle.LoadAllAssets<T>().ToList();
-            localAssetBundle.Unload(false);
 
             return data;
         }
@@ -33,7 +33,7 @@ namespace AgToolkit.AgToolkit.Core.DataSystem
         /// <summary>
         /// Load local assetbundle async and return data in the callback
         /// </summary>
-        public IEnumerator LoadLocalBundleAsync<T>(string bundleName, System.Action<List<T>> callback) where T : Object
+        public static IEnumerator LoadLocalBundleAsync<T>(string bundleName, System.Action<List<T>> callback) where T : Object
         {
             AssetBundleCreateRequest asyncRequest = AssetBundle.LoadFromFileAsync(Path.Combine(Application.streamingAssetsPath, bundleName));
 
@@ -52,13 +52,26 @@ namespace AgToolkit.AgToolkit.Core.DataSystem
             yield return assetRequest;
 
             callback(assetRequest.allAssets.Cast<T>().ToList() ); // return data in the callback
-            localAssetBundle.Unload(false);
+            _BundleLoaded.Add(localAssetBundle);
         }
+
+        public static void UnloadAssetBundles(bool destroyGameObject = false)
+        {
+            foreach (AssetBundle ab in _BundleLoaded)
+            {
+                ab.Unload(destroyGameObject);
+            }
+
+            Debug.LogError("I AM CLEAN");
+            _BundleLoaded.Clear();
+        }
+
+
 
         /// <summary>
         /// Load assetBundle from web url and return data in the callback 
         /// </summary>
-        public IEnumerator LoadBundleFromWeb<T>(string url, System.Action<List<T>> callback) where T : Object
+        public static IEnumerator LoadBundleFromWeb<T>(string url, System.Action<List<T>> callback) where T : Object
         {
             using (WWW web = new WWW(url))
             {
@@ -73,7 +86,6 @@ namespace AgToolkit.AgToolkit.Core.DataSystem
                 }
 
                 callback(remoAssetBundle.LoadAllAssets<T>().ToList());
-                remoAssetBundle.Unload(false);
             }
         }
 
