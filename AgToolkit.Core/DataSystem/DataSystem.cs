@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace AgToolkit.AgToolkit.Core.DataSystem
 {
-    public class DataSystemManager
+    public class DataSystem
     {
         private static Dictionary<string, AssetBundle> _BundleLoaded = new Dictionary<string, AssetBundle>();
 

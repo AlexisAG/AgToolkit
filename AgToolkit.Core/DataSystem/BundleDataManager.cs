@@ -50,7 +50,7 @@ namespace AgToolkit.AgToolkit.Core.DataSystem
         public void ClearAllBundlesLoaded(bool destroyGameObject = false)
         {
             _BundleData.Clear();
-            DataSystemManager.UnloadAllAssetBundles(destroyGameObject);
+            DataSystem.UnloadAllAssetBundles(destroyGameObject);
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace AgToolkit.AgToolkit.Core.DataSystem
             if (!_BundleData.ContainsKey(bundle)) return;
 
 
-            DataSystemManager.UnloadAssetBundle(bundle, destroyGameObject);
+            DataSystem.UnloadAssetBundle(bundle, destroyGameObject);
             _BundleData.Remove(bundle);
         }
 
@@ -78,15 +78,15 @@ namespace AgToolkit.AgToolkit.Core.DataSystem
             {
                 if (Uri.IsWellFormedUriString(name, UriKind.Absolute))
                 {
-                    yield return DataSystemManager.LoadBundleFromWeb<Object>(name, list => _BundleData.Add(name, list));
+                    yield return DataSystem.LoadBundleFromWeb<Object>(name, list => _BundleData.Add(name, list));
                 }
                 else
                 {
-                    yield return DataSystemManager.LoadLocalBundleAsync<Object>(name, list => _BundleData.Add(name, list));
+                    yield return DataSystem.LoadLocalBundleAsync<Object>(name, list => _BundleData.Add(name, list));
                 }
             }
 
-            if(_CleanMemoryAfterOnLoad) DataSystemManager.UnloadAllAssetBundles();
+            if(_CleanMemoryAfterOnLoad) DataSystem.UnloadAllAssetBundles();
         }
     }
 }
