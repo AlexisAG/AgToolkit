@@ -135,9 +135,9 @@ To load your AssetBundle data see the [DataSystem](#datasystem) documentation.
 
 This toolkit provide a **DataSystem** to save or load data for your your project.
 
-### Load AssetBundle with DataSystemManager
+### Load AssetBundle with DataSystem
 
-When you call the **DataSystemManager** to load your *AssetBundle* it will always return a `List<T>`. This *List* can be empty if no *AssetBundle* has been found.
+When you call the **DataSystem** to load your *AssetBundle* it will always return a `List<T>`. This *List* can be empty if no *AssetBundle* has been found.
 
 **Local *AssetBundle***:
   
@@ -159,7 +159,7 @@ When you call the **DataSystemManager** to load your *AssetBundle* it will alway
   public IEnumerator Load()
   {
     List<Building> _Buildings = null;
-    yield return DataSystemManager.Instance.LoadLocalBundleAsync<Building>(_BundleName, data => _Buildings = data);  
+    yield return DataSystem.Instance.LoadLocalBundleAsync<Building>(_BundleName, data => _Buildings = data);  
   }
   ```
  
@@ -178,7 +178,7 @@ When you call the **DataSystemManager** to load your *AssetBundle* it will alway
   
   public void Load() 
   {
-    List<Building> _Buildings = DataSystemManager.Instance.LoadLocalBundleSync<Building>(_BundleName);
+    List<Building> _Buildings = DataSystem.Instance.LoadLocalBundleSync<Building>(_BundleName);
   }
   ```
 
@@ -200,7 +200,7 @@ public IEnumerator LoadBundleFromWeb<T>(string url, System.Action<List<T>> callb
   public IEnumerator Load()
   {
     List<Building> _Buildings = null;
-    yield return DataSystemManager.Instance.LoadBundleFromWeb<Building>(_BundleName, data => _Buildings = data);  
+    yield return DataSystem.Instance.LoadBundleFromWeb<Building>(_BundleName, data => _Buildings = data);  
   }
   ```
 
