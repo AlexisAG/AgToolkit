@@ -74,7 +74,6 @@ namespace AgToolkit.AgToolkit.Core.Timer
 
         private void IsComplete(Timer t)
         {
-            Debug.LogWarning($"Timer finished");
             StopTimer(t, false);
         }
 

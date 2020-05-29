@@ -1,15 +1,28 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using AgToolkit.AgToolkit.Core.Singleton;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace AgToolkit.AgToolkit.Core.DataSystem
 {
     public class DataSystem
     {
+        private static string _BinaryFileExtension = ".save";
         private static Dictionary<string, AssetBundle> _BundleLoaded = new Dictionary<string, AssetBundle>();
+
+        private static string GetIndexFile(string dir)
+        {
+            if (!Directory.Exists(Application.persistentDataPath + '/' + dir))
+            {
+                Directory.CreateDirectory(Application.persistentDataPath + '/' + dir);
+            }
+            return Directory.GetFiles(Application.persistentDataPath + '/' + dir).Length.ToString();
+        }
 
         #region Asset Bundle
         /// <summary>
@@ -107,5 +120,68 @@ namespace AgToolkit.AgToolkit.Core.DataSystem
         }
 
         #endregion
+
+
+        /// <summary>
+        /// Save 
+        /// </summary>
+        /// <param name="dir"></param>
+        /// <param name="data"></param>
+        /// <param name="fileId">If fileId is null, the filename will be the index file in the dir</param>
+        /// <param name="replaceExisting">If fileId is null, the filename will be the index file in the dir</param>
+        public static void SaveGameInBinary(string dir, DataSerializable data, string fileId = null, bool replaceExisting = true)
+        {
+            FileMode mode = replaceExisting ? FileMode.Create : FileMode.CreateNew;
+
+            if (fileId == null)
+            {
+                fileId = GetIndexFile(dir);
+            }
+
+
+            if (!Directory.Exists(Application.persistentDataPath + '/' + dir))
+            {
+                Directory.CreateDirectory(Application.persistentDataPath + '/' + dir);
+            }
+
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(Application.persistentDataPath + "/" + dir + "/" + fileId + _BinaryFileExtension, mode);
+
+            formatter.Serialize(stream, data);
+            stream.Close();
+        }
+
+        public static List<T> LoadAllDataFromBinary<T>(string dir) where T : DataSerializable
+        {
+            List<T> data = new List<T>();
+            BinaryFormatter formatter = new BinaryFormatter();
+
+            if (!Directory.Exists(Application.persistentDataPath + '/' + dir)) return data;
+
+            Directory.GetFiles(Application.persistentDataPath + '/' + dir).ToList().ForEach((s =>
+            {
+                FileStream stream = new FileStream(s, FileMode.Open);
+
+                data.Add(formatter.Deserialize(stream) as T);
+
+                stream.Close();
+            }));
+
+            return data;
+        }
+
+        public static T LoadDataFromBinary<T>(string dir, string filename)  where T : DataSerializable
+        {
+            string path = Application.persistentDataPath + '/' + dir + "/" + filename + _BinaryFileExtension;
+
+            if (!File.Exists(path)) return null;
+
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(path, FileMode.Open);
+            stream.Close();
+
+            return formatter.Deserialize(stream) as T;
+        }
+
     }
 }
