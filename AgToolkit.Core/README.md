@@ -95,13 +95,15 @@ There is 2 ways to **create a pool**.
   /// get a pooled object
   GameObject pooledObj = PoolManager.Instance.GetPooledObject("fake");
   // config all data of the object...
-  poolObj.transform.SetParent(yourchoice); //Don't forget to move the gameobject outside of his pool
-  poolObj.SetActive(true); 
-  
+  pooledObj.transform.SetParent(yourchoice); //Don't forget to move the gameobject outside of his pool
+  pooledObj.SetActive(true); 
+ ```
+ 
+ ```cs
   /// deactive a pooled object
   // reset all data of the object...
-  poolObj.SetActive(false);
-  poolObj.SetParent(ThePool); // do that only if the *autoSendBack* param is false
+  pooledObj.SetActive(false);
+  pooledObj.SetParent(ThePool); // do that only if the *autoSendBack* param is false
 ```
 
 ## Editor
