@@ -121,6 +121,7 @@ namespace AgToolkit.AgToolkit.Core.DataSystem
 
         #endregion
 
+        #region Binary System
 
         /// <summary>
         /// Save 
@@ -151,6 +152,11 @@ namespace AgToolkit.AgToolkit.Core.DataSystem
             stream.Close();
         }
 
+        /// <summary>
+        /// Load data from all files of a directory
+        /// </summary>
+        /// <typeparam name="T">DataType</typeparam>
+        /// <param name="dir">Directory name</param>
         public static List<T> LoadAllDataFromBinary<T>(string dir) where T : DataSerializable
         {
             List<T> data = new List<T>();
@@ -170,6 +176,12 @@ namespace AgToolkit.AgToolkit.Core.DataSystem
             return data;
         }
 
+        /// <summary>
+        /// Load data from a file
+        /// </summary>
+        /// <typeparam name="T">data type</typeparam>
+        /// <param name="dir">directory name</param>
+        /// <param name="filename">file name</param>
         public static T LoadDataFromBinary<T>(string dir, string filename)  where T : DataSerializable
         {
             string path = Application.persistentDataPath + '/' + dir + "/" + filename + _BinaryFileExtension;
@@ -182,6 +194,8 @@ namespace AgToolkit.AgToolkit.Core.DataSystem
 
             return formatter.Deserialize(stream) as T;
         }
+        #endregion
+
 
     }
 }
