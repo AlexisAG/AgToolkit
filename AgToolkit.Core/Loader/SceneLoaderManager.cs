@@ -11,14 +11,14 @@ namespace AgToolkit.Core.Loader
 {
 	public class SceneLoaderManager : Singleton<SceneLoaderManager>
 	{
-        [SerializeField]
-		private SceneReference _defaultLoadingScene = null;
+        [FormerlySerializedAs("_defaultLoadingScene")] [SerializeField]
+		private SceneReference _DefaultLoadingScene = null;
 
-		[SerializeField]
-		private List<SceneReference> _additionalPersistentScenes = new List<SceneReference>();
+		[FormerlySerializedAs("_additionalPersistentScenes")] [SerializeField]
+		private List<SceneReference> _AdditionalPersistentScenes = new List<SceneReference>();
 
 		[FormerlySerializedAs("_minLoadTimeSec")]
-        public float _MinLoadTimeSec = 1.0f;
+        public float MinLoadTimeSec = 1.0f;
 
 		//events
 		public event Func<IEnumerator> OnBeforeUnload = null;
@@ -27,34 +27,34 @@ namespace AgToolkit.Core.Loader
 		public event Func<IEnumerator> OnFadeIn = null;
 		public event Func<IEnumerator> OnFadeOut = null;
 
-		private SceneContent _nextSceneContent = null;
+		private SceneContent _NextSceneContent = null;
 
-		private readonly Stack<string> _scenesToUnload = new Stack<string>();
+		private readonly Stack<string> _ScenesToUnload = new Stack<string>();
 
-		private bool _isParsingPersistentScenesList = false;
+		private bool _IsParsingPersistentScenesList = false;
 
         /// <summary>
         /// Add a persistent scene 
         /// </summary>
         public void AddPersistentSceneToLoad(SceneReference scene)
 		{
-			if (_isParsingPersistentScenesList)
+			if (_IsParsingPersistentScenesList)
 			{
 				Debug.LogWarning($"[{this.GetType().Name}] You should not add a persistent scene while loading another one, unexpected behavior.");
 			}
 
-			_additionalPersistentScenes.Add(scene);
+			_AdditionalPersistentScenes.Add(scene);
 		}
 
 		/// <summary>
 		/// Start loading next scene(s) and unloading previous ones
 		/// </summary>
-		/// <param name="sceneContent">next SceneContent asset to load, or null to use <see cref="_nextSceneContent"</see> </param>
+		/// <param name="sceneContent">next SceneContent asset to load, or null to use <see cref="_NextSceneContent"</see> </param>
 		public void Load(SceneContent sceneContent)
 		{
 			if (sceneContent != null)
 			{
-				_nextSceneContent = sceneContent;
+				_NextSceneContent = sceneContent;
 			}
 			CoroutineManager.Instance.StartCoroutine(DoLoad());
 		}
@@ -71,18 +71,18 @@ namespace AgToolkit.Core.Loader
             yield return UnLoadPreviousScene();
 
             //load persistent scenes (they will never be unloaded)
-            _isParsingPersistentScenesList = true;
-            yield return LoadMultipleScenes(_additionalPersistentScenes.ToArray(), true);
+            _IsParsingPersistentScenesList = true;
+            yield return LoadMultipleScenes(_AdditionalPersistentScenes.ToArray(), true);
 
 			// clear array, to be able to push new persistent scenes to load later on
-			_additionalPersistentScenes.Clear();
-			_isParsingPersistentScenesList = false;
+			_AdditionalPersistentScenes.Clear();
+			_IsParsingPersistentScenesList = false;
 
 			//then load new ones
-            yield return LoadMultipleScenes(_nextSceneContent.ContentScenes, false);
+            yield return LoadMultipleScenes(_NextSceneContent.ContentScenes, false);
             
 			//lighting and active scene
-			string lightScene = _nextSceneContent.LightingScene?.ScenePath;
+			string lightScene = _NextSceneContent.LightingScene?.ScenePath;
 			if (!string.IsNullOrEmpty(lightScene))
 			{
 				Debug.Log($"[{this.GetType().Name}] loading {lightScene}");
@@ -90,10 +90,10 @@ namespace AgToolkit.Core.Loader
 
 				SceneManager.SetActiveScene(SceneManager.GetSceneByPath(lightScene));
 			}
-			else if (_nextSceneContent.ContentScenes.Length > 0)
+			else if (_NextSceneContent.ContentScenes.Length > 0)
 			{
 				//default active scene to first content scene
-				SceneManager.SetActiveScene(SceneManager.GetSceneByPath(_nextSceneContent.ContentScenes[0].ScenePath));
+				SceneManager.SetActiveScene(SceneManager.GetSceneByPath(_NextSceneContent.ContentScenes[0].ScenePath));
 			}
 
 			yield return InvokeActions(OnAfterLoad);
@@ -105,13 +105,13 @@ namespace AgToolkit.Core.Loader
 			yield return InvokeActions(OnFadeOut, true);
 
 			//finally unload loading scene
-			if (!string.IsNullOrEmpty(_nextSceneContent?.LoadingScene?.ScenePath))
+			if (!string.IsNullOrEmpty(_NextSceneContent?.LoadingScene?.ScenePath))
             {
-                yield return UnLoadScene(_nextSceneContent?.LoadingScene?.ScenePath);
+                yield return UnLoadScene(_NextSceneContent?.LoadingScene?.ScenePath);
             }
-            else if (!string.IsNullOrEmpty(_defaultLoadingScene?.ScenePath))
+            else if (!string.IsNullOrEmpty(_DefaultLoadingScene?.ScenePath))
             {
-                yield return UnLoadScene(_defaultLoadingScene?.ScenePath);
+                yield return UnLoadScene(_DefaultLoadingScene?.ScenePath);
             }
         }
 
@@ -135,7 +135,7 @@ namespace AgToolkit.Core.Loader
             AsyncOperation loadLoadingOp = SceneManager.LoadSceneAsync(scenePath, LoadSceneMode.Additive);
             if (!isPersistantScene)
             {
-                _scenesToUnload.Push(scenePath);
+                _ScenesToUnload.Push(scenePath);
             }
             yield return new WaitUntil(() => loadLoadingOp == null || loadLoadingOp.isDone);
         }
@@ -153,9 +153,9 @@ namespace AgToolkit.Core.Loader
         private IEnumerator DisplayLoadingScene()
         {
             //use loading scene provided in desc, or fallback to default if null
-            string loadingScenePath = _nextSceneContent?.LoadingScene?.ScenePath;
+            string loadingScenePath = _NextSceneContent?.LoadingScene?.ScenePath;
             if (string.IsNullOrEmpty(loadingScenePath)) {
-                loadingScenePath = _defaultLoadingScene?.ScenePath;
+                loadingScenePath = _DefaultLoadingScene?.ScenePath;
             }
 
             if (string.IsNullOrEmpty(loadingScenePath)) {
@@ -172,12 +172,12 @@ namespace AgToolkit.Core.Loader
             //unload previous scenes
             yield return InvokeActions(OnBeforeUnload);
 
-            while (_scenesToUnload.Count > 0) {
-                string scene = _scenesToUnload.Pop();
+            while (_ScenesToUnload.Count > 0) {
+                string scene = _ScenesToUnload.Pop();
                 Debug.Log($"[{this.GetType().Name}] unloading {scene}");
                 yield return UnLoadScene(scene);
             }
-            _scenesToUnload.Clear();
+            _ScenesToUnload.Clear();
         }
 
 		private IEnumerator InvokeActions(Func<IEnumerator> enumeratorEvent, bool parallel = false)
