@@ -5,6 +5,7 @@ using AgToolkit.AgToolkit.Core.Singleton;
 using AgToolkit.Core.Helper;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace AgToolkit.Core.Loader
 {
@@ -16,7 +17,8 @@ namespace AgToolkit.Core.Loader
 		[SerializeField]
 		private List<SceneReference> _additionalPersistentScenes = new List<SceneReference>();
 
-		public float _minLoadTimeSec = 1.0f;
+		[FormerlySerializedAs("_minLoadTimeSec")]
+        public float _MinLoadTimeSec = 1.0f;
 
 		//events
 		public event Func<IEnumerator> OnBeforeUnload = null;
@@ -97,7 +99,7 @@ namespace AgToolkit.Core.Loader
 			yield return InvokeActions(OnAfterLoad);
 
 			//wait the minimum time
-			yield return new WaitUntil(() => _minLoadTimeSec <= (Time.realtimeSinceStartup - startLoadingTime));
+			yield return new WaitUntil(() => _MinLoadTimeSec <= (Time.realtimeSinceStartup - startLoadingTime));
 			Debug.Log(string.Format("[Loading] took {0:00} ms", (Time.realtimeSinceStartup - startLoadingTime) * 1000));
 
 			yield return InvokeActions(OnFadeOut, true);
@@ -119,7 +121,7 @@ namespace AgToolkit.Core.Loader
             yield return new WaitUntil(() => unloadLoadingOp == null || unloadLoadingOp.isDone);
         }
 
-        private IEnumerator UnLoadMultipleScenes(SceneReference[] scenes)
+        private IEnumerator UnLoadMultipleScenes(IEnumerable<SceneReference> scenes)
         {
             foreach (SceneReference sr in scenes) {
                 string scene = sr.ScenePath;
@@ -138,7 +140,7 @@ namespace AgToolkit.Core.Loader
             yield return new WaitUntil(() => loadLoadingOp == null || loadLoadingOp.isDone);
         }
 
-        private IEnumerator LoadMultipleScenes(SceneReference[] scenes, bool areContentScenes)
+        private IEnumerator LoadMultipleScenes(IEnumerable<SceneReference> scenes, bool areContentScenes)
         {
             foreach (SceneReference sr in scenes)
             {
