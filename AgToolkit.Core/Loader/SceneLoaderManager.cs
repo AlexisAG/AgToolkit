@@ -70,21 +70,21 @@ namespace AgToolkit.Core.Loader
 
             //load persistent scenes (they will never be unloaded)
             _isParsingPersistentScenesList = true;
-            yield return LoadMultipleScenes(_additionalPersistentScenes.ToArray(), false);
+            yield return LoadMultipleScenes(_additionalPersistentScenes.ToArray(), true);
 
 			// clear array, to be able to push new persistent scenes to load later on
 			_additionalPersistentScenes.Clear();
 			_isParsingPersistentScenesList = false;
 
 			//then load new ones
-            yield return LoadMultipleScenes(_nextSceneContent.ContentScenes, true);
+            yield return LoadMultipleScenes(_nextSceneContent.ContentScenes, false);
             
 			//lighting and active scene
 			string lightScene = _nextSceneContent.LightingScene?.ScenePath;
 			if (!string.IsNullOrEmpty(lightScene))
 			{
 				Debug.Log($"[{this.GetType().Name}] loading {lightScene}");
-                yield return LoadScene(lightScene, true);
+                yield return LoadScene(lightScene, false);
 
 				SceneManager.SetActiveScene(SceneManager.GetSceneByPath(lightScene));
 			}
@@ -96,9 +96,9 @@ namespace AgToolkit.Core.Loader
 
 			yield return InvokeActions(OnAfterLoad);
 
-			Debug.Log(string.Format("[Loading] took {0:00} ms", (Time.realtimeSinceStartup - startLoadingTime) * 1000));
 			//wait the minimum time
 			yield return new WaitUntil(() => _minLoadTimeSec <= (Time.realtimeSinceStartup - startLoadingTime));
+			Debug.Log(string.Format("[Loading] took {0:00} ms", (Time.realtimeSinceStartup - startLoadingTime) * 1000));
 
 			yield return InvokeActions(OnFadeOut, true);
 
@@ -106,6 +106,10 @@ namespace AgToolkit.Core.Loader
 			if (!string.IsNullOrEmpty(_nextSceneContent?.LoadingScene?.ScenePath))
             {
                 yield return UnLoadScene(_nextSceneContent?.LoadingScene?.ScenePath);
+            }
+            else if (!string.IsNullOrEmpty(_defaultLoadingScene?.ScenePath))
+            {
+                yield return UnLoadScene(_defaultLoadingScene?.ScenePath);
             }
         }
 
@@ -124,10 +128,13 @@ namespace AgToolkit.Core.Loader
             }
         }
 
-        private IEnumerator LoadScene(string scenePath, bool isContentScene)
+        private IEnumerator LoadScene(string scenePath, bool isPersistantScene)
         {
             AsyncOperation loadLoadingOp = SceneManager.LoadSceneAsync(scenePath, LoadSceneMode.Additive);
-            _scenesToUnload.Push(scenePath);
+            if (!isPersistantScene)
+            {
+                _scenesToUnload.Push(scenePath);
+            }
             yield return new WaitUntil(() => loadLoadingOp == null || loadLoadingOp.isDone);
         }
 
@@ -154,7 +161,7 @@ namespace AgToolkit.Core.Loader
             }
             else
             {
-                yield return LoadScene(loadingScenePath, false);
+                yield return LoadScene(loadingScenePath, true);
             }
         }
 
