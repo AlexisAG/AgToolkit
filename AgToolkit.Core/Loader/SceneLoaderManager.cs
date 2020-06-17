@@ -99,7 +99,7 @@ namespace AgToolkit.Core.Loader
 			yield return InvokeActions(OnAfterLoad);
 
 			//wait the minimum time
-			yield return new WaitUntil(() => _MinLoadTimeSec <= (Time.realtimeSinceStartup - startLoadingTime));
+			yield return new WaitUntil(() => MinLoadTimeSec <= (Time.realtimeSinceStartup - startLoadingTime));
 			Debug.Log(string.Format("[Loading] took {0:00} ms", (Time.realtimeSinceStartup - startLoadingTime) * 1000));
 
 			yield return InvokeActions(OnFadeOut, true);
