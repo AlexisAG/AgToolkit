@@ -24,6 +24,24 @@ namespace AgToolkit.AgToolkit.Core.Editor
             }
         }
 
+        [MenuItem("Assets/Create/AgToolkit/AssetBundle/CreateBundleNameRecursively")]
+        public static void CreateBundleNameRecursively() 
+        {
+            string dirPath = AssetDatabase.GetAssetPath(Selection.GetFiltered<Object>(SelectionMode.Assets)[0]);
+
+            if (string.IsNullOrEmpty(dirPath)) return;
+
+            string dirName = new DirectoryInfo(dirPath).Name;
+
+            foreach (string dir in Directory.GetDirectories(dirPath))
+            {
+                foreach (string asset in Directory.GetFiles(dir, "*.asset"))
+                {
+                    AssetImporter.GetAtPath(asset).assetBundleName = dirName;
+                }
+            }
+        }
+
         [MenuItem("AgToolkit/AssetBundle/Build")]
         public static void BuildAllAssetBundles()
         {
