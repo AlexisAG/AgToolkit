@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace AgToolkit.AgToolkit.Core.Editor
+namespace AgToolkit.Core.Editor
 {
     public class AssetBundlesCreation
     {
