@@ -117,11 +117,11 @@ This toolkit provides an easy way to configure and build an **AssetBundle**.
 ![Data For AssetBundle Example](/Documentation/Images/DataInFolder.JPG)
 
 2. Right click on the folder.
-3. Create -> AgToolkit -> AssetBundle -> CreateBundleName (See below).
+3. Create -> AgToolkit -> AssetBundle -> CreateBundleNameRecursively (See below).
 
  ![Create AssetBundle Name Example](/Documentation/Images/CreateBundleName.jpg)
 
-All asset in the directory will be added to a new (or existing) assetbundle with the *directory name* (in lower case).
+All asset in the directory (and subdirectories) will be added to a new (or existing) assetbundle with the *directory name* (in lower case). If you don't want to include files from subdirectories, use *CreateBundleName* instead of *CreateBundleNameRecursively*.
 
  ![Asset With AssetBundle Example](/Documentation/Images/AssetBundleNameSet.JPG)
 
