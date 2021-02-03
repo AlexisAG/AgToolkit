@@ -10,10 +10,12 @@ namespace AgToolkit.Core.GameModes
 	{
 		[SerializeField]
 		private GameModeConfig _gameModesConfig = null;
+        private SceneContent _currentSceneContent = null;
 
 		public GameMode CurrentGameMode { get; private set; }
+        public SceneContent CurrentSceneContent { get; private set; }
 
-		protected void Start()
+        protected void Start()
 		{
 			SceneLoaderManager.Instance.OnBeforeUnload += OnBeforeUnload;
 			SceneLoaderManager.Instance.OnAfterLoad += OnAfterLoad;
@@ -32,10 +34,10 @@ namespace AgToolkit.Core.GameModes
 		{
 			Debug.Assert(_gameModesConfig != null, $"No GameModeConfig set in GameManager.");
 
-			SceneContent sceneToLoad = _gameModesConfig.GetSceneContent(gameMode);
-			Debug.Assert(sceneToLoad != null, $"No SceneContent set for GameMode {gameMode.Name}, did you forget to set GameManager entry ?");
+            CurrentSceneContent = _gameModesConfig.GetSceneContent(gameMode);
+			Debug.Assert(CurrentSceneContent != null, $"No SceneContent set for GameMode {gameMode.Name}, did you forget to set GameManager entry ?");
 
-			ChangeGameMode(sceneToLoad);
+			ChangeGameMode(CurrentSceneContent);
 		}
 
 		/// <summary>
