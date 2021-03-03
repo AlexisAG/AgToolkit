@@ -56,7 +56,8 @@ namespace AgToolkit.AgToolkit.Core.Singleton
 		protected virtual void OnDestroy()
 		{
 			_ShuttingDown = true;
-		}
+            _Instance = null;
+        }
 
 		private void CreateInstance()
 		{
@@ -69,6 +70,7 @@ namespace AgToolkit.AgToolkit.Core.Singleton
 					//Make persistent
 					DontDestroyOnLoad(this);
 
+                    _ShuttingDown = false;
 					Debug.Log($"Singleton <{typeof(T)}> instanced.");
 				}
 			}
