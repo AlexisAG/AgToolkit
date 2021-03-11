@@ -68,7 +68,7 @@ namespace AgToolkit.Core.Pool
 				return Expand();
 			}
 
-			Debug.LogError($"[{GetType().Name}] {_poolData.PoolId} is empty and non expandable, can't extract an object.");
+			Debug.LogWarning($"[{GetType().Name}] {_poolData.PoolId} is empty and non expandable, can't extract an object.");
 
 			return null;
 		}
