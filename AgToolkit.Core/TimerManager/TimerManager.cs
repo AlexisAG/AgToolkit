@@ -26,12 +26,11 @@ namespace AgToolkit.AgToolkit.Core.Timer
             _Id = id;
             _Limit = limit;
             _CurrentTime = 0f;
-            Event = e;
+            Event = new UnityEvent();
+            Event.AddListener(() => TimerManager.Instance.StopTimer(this, false));
+            Event.AddListener(() => e.Invoke());
 
-            if (TimerManager.IsInstanced)
-            {
-                TimerManager.Instance.Register(this);
-            }
+            TimerManager.Instance.Register(this);
         }
 
         /// <summary>
@@ -72,17 +71,13 @@ namespace AgToolkit.AgToolkit.Core.Timer
             }
         }
 
-        private void IsComplete(Timer t)
-        {
-            StopTimer(t, false);
-        }
-
         /// <summary>
         /// Start a timer, register it if his not already registered
         /// </summary>
         public void StartTimer(Timer t, bool resetBefore = true)
         {
             Register(t);
+            
             if (resetBefore)
             {
                 ResetTimer(t);
@@ -137,7 +132,6 @@ namespace AgToolkit.AgToolkit.Core.Timer
         {
             if (_Timers.Contains(t)) return;
 
-            t.Event.AddListener((() => {IsComplete(t);}));
             _Timers.Add(t);
         }
 
