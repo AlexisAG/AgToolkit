@@ -14,7 +14,7 @@ namespace AgToolkit.Core.Helper.Events
 
 		public override void Raise()
 		{
-            Debug.Assert(Param != default);
+            Debug.Assert(!EqualityComparer<T>.Default.Equals(Param, default));
 			foreach (var listener in ParamListeners)
             {
                 listener.OnEventRaised(this);
