@@ -63,7 +63,7 @@ namespace AgToolkit.AgToolkit.Core.Timer
 
         private void Update()
         {
-            foreach (Timer t in _Timers)
+            foreach (Timer t in _Timers.ToArray())
             {
                 if (!t.IsActive) continue;
 
