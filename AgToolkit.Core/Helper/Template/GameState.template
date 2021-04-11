@@ -1,0 +1,14 @@
+﻿using AgToolkit.Core.GameModes.GameStates;
+using System;
+using UnityEngine;
+
+[Serializable]
+public class #CLASSNAME#Data : IGameStateData
+{
+
+}
+
+public class #CLASSNAME#GameState : GameStateMonoBehaviour<#CLASSNAME#Data>
+{
+
+}
