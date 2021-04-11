@@ -2,9 +2,9 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace AgToolkit.Core.Editor
+namespace AgToolkit.Core.Helper
 {
-    public class AssetBundlesCreation
+    public class AssetBundlesHelper
     {
     #if UNITY_EDITOR
         private static string _AssetBundleDirectory = "Assets/StreamingAssets";
@@ -49,7 +49,7 @@ namespace AgToolkit.Core.Editor
             {
                 Directory.CreateDirectory(_AssetBundleDirectory);
             }
-
+            
             BuildPipeline.BuildAssetBundles(_AssetBundleDirectory, BuildAssetBundleOptions.None, EditorUserBuildSettings.activeBuildTarget);
         }
     #endif
