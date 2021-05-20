@@ -161,7 +161,7 @@ When you call the **DataSystem** to load your *AssetBundle* it will always retur
   public IEnumerator Load()
   {
     List<Building> _Buildings = null;
-    yield return DataSystem.Instance.LoadLocalBundleAsync<Building>(_BundleName, data => _Buildings = data);  
+    yield return DataSystem.LoadLocalBundleAsync<Building>(_BundleName, data => _Buildings = data);  
   }
   ```
  
@@ -180,7 +180,7 @@ When you call the **DataSystem** to load your *AssetBundle* it will always retur
   
   public void Load() 
   {
-    List<Building> _Buildings = DataSystem.Instance.LoadLocalBundleSync<Building>(_BundleName);
+    List<Building> _Buildings = DataSystem.LoadLocalBundleSync<Building>(_BundleName);
   }
   ```
 
@@ -202,7 +202,7 @@ public IEnumerator LoadBundleFromWeb<T>(string url, System.Action<List<T>> callb
   public IEnumerator Load()
   {
     List<Building> _Buildings = null;
-    yield return DataSystem.Instance.LoadBundleFromWeb<Building>(_BundleName, data => _Buildings = data);  
+    yield return DataSystem.LoadBundleFromWeb<Building>(_BundleName, data => _Buildings = data);  
   }
   ```
 
