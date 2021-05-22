@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using AgToolkit.AgToolkit.Core.Singleton;
+using AgToolkit.Core.DesignPattern.Singleton;
 using AgToolkit.Core.Helper;
 using UnityEngine;
 using UnityEngine.SceneManagement;

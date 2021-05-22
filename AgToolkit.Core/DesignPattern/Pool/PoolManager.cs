@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using AgToolkit.AgToolkit.Core.Singleton;
+using AgToolkit.Core.DesignPattern.Singleton;
 using UnityEngine;
 
-namespace AgToolkit.Core.Pool
+namespace AgToolkit.Core.DesignPattern.Pool
 {
 	public class PoolManager : Singleton<PoolManager>
 	{

@@ -1,4 +1,4 @@
-using AgToolkit.AgToolkit.Core.Singleton;
+using AgToolkit.Core.DesignPattern.Singleton;
 
 namespace AgToolkit.Core.Helper
 {

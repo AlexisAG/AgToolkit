@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace AgToolkit.Core.Pool
+namespace AgToolkit.Core.DesignPattern.Pool
 {
 	public class PoolMember : MonoBehaviour
 	{
