@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
-using AgToolkit.AgToolkit.Core.Singleton;
 using UnityEngine;
 using Object = UnityEngine.Object;
 

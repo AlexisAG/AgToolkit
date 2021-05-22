@@ -1,6 +1,6 @@
 using System.Collections;
 using AgToolkit.AgToolkit.Core.GameModes;
-using AgToolkit.AgToolkit.Core.Singleton;
+using AgToolkit.Core.DesignPattern.Singleton;
 using AgToolkit.Core.Loader;
 using UnityEngine;
 
