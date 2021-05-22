@@ -4,7 +4,6 @@ The **core module** implements many features that can be used in all types of pr
 
 * [Singleton](#singleton)
 * [Pool](#pool)
-* [Editor](#editor)
 * [DataSystem](#datasystem)
 * [Loader](#loader)
 * [GameMode](#gamemode)
@@ -105,33 +104,6 @@ There is 2 ways to **create a pool**.
   pooledObj.SetActive(false);
   pooledObj.SetParent(ThePool); // do that only if the *autoSendBack* param is false
 ```
-
-## Editor
-
-This toolkit provides an easy way to configure and build an **AssetBundle**.
-
-**Setup data for asset bundle**
-
-1. Create all your data in a folder (eg: All your scriptable object *building*).
-
-![Data For AssetBundle Example](/Documentation/Images/DataInFolder.JPG)
-
-2. Right click on the folder.
-3. Create -> AgToolkit -> AssetBundle -> CreateBundleNameRecursively (See below).
-
- ![Create AssetBundle Name Example](/Documentation/Images/CreateBundleName.jpg)
-
-All asset in the directory (and subdirectories) will be added to a new (or existing) assetbundle with the *directory name* (in lower case). If you don't want to include files from subdirectories, use *CreateBundleName* instead of *CreateBundleNameRecursively*.
-
- ![Asset With AssetBundle Example](/Documentation/Images/AssetBundleNameSet.JPG)
-
-**Build all AssetBundles**
-
- ![Build All AssetBundle Example](/Documentation/Images/BuildAssetBundle.jpg)
-
-AssetBundle will be integrated into *Assets/StreamingAssets/*. If the path does not exist, the Toolkit will create it.
-
-To load your AssetBundle data see the [DataSystem](#datasystem) documentation.
 
 ## DataSystem
 
@@ -245,8 +217,32 @@ todo
 
 ## Helper
 
-todo
+### AssetBundleHelper
 
+This toolkit provides an easy way to configure and build an **AssetBundle**.
+
+**Setup data for asset bundle**
+
+1. Create all your data in a folder (eg: All your scriptable object *building*).
+
+![Data For AssetBundle Example](/Documentation/Images/DataInFolder.JPG)
+
+2. Right click on the folder.
+3. Create -> AgToolkit -> AssetBundle -> CreateBundleNameRecursively (See below).
+
+ ![Create AssetBundle Name Example](/Documentation/Images/CreateBundleName.jpg)
+
+All asset in the directory (and subdirectories) will be added to a new (or existing) assetbundle with the *directory name* (in lower case). If you don't want to include files from subdirectories, use *CreateBundleName* instead of *CreateBundleNameRecursively*.
+
+ ![Asset With AssetBundle Example](/Documentation/Images/AssetBundleNameSet.JPG)
+
+**Build all AssetBundles**
+
+ ![Build All AssetBundle Example](/Documentation/Images/BuildAssetBundle.jpg)
+
+AssetBundle will be integrated into *Assets/StreamingAssets/*. If the path does not exist, the Toolkit will create it.
+
+To load your AssetBundle data see the [DataSystem](#datasystem) documentation.
 
 ## TimerManager
 
