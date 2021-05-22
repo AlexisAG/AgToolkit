@@ -8,8 +8,6 @@ The **core module** implements many features that can be used in all types of pr
 * [Loader](#loader)
 * [GameMode](#gamemode)
 * [Helper](#helper)
-* [TimerManager](#timermanager)
-
 
 ## Singleton
 
@@ -217,7 +215,7 @@ todo
 
 ## Helper
 
-### AssetBundleHelper
+### AssetBundle Helper
 
 This toolkit provides an easy way to configure and build an **AssetBundle**.
 
@@ -244,6 +242,48 @@ AssetBundle will be integrated into *Assets/StreamingAssets/*. If the path does 
 
 To load your AssetBundle data see the [DataSystem](#datasystem) documentation.
 
-## TimerManager
+### GameMode Helper
+
+todo
+
+### Serialization
+
+With this toolkit, you can serialize a dictionary to show it in the unity inspector window. You have to create a new **SerializableDictionary** and a new **SerializableDictionaryPropertyDrawer**. Then, juste implement your **SerializableDictionary** as a **[SerializeField]** property.
+
+**Create your SerializableDictionary & SerializableDictionaryPropertyDrawer**
+
+```cs
+using System;
+using AgToolkit.Core.Helper.Serialization;
+using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
+using AgToolkit.Core.Helper.Drawer;
+#endif
+
+[Serializable]
+public class StringGameObjectDictionary : SerializableDictionary<string, GameObject>
+{
+}
+
+#if UNITY_EDITOR
+[CustomPropertyDrawer(typeof(StringGameObjectDictionary))]
+public class StringGameObjectDictionaryDrawer : SerializableDictionaryPropertyDrawer
+{
+}
+#endif
+```
+
+Note the **preprocessor directive** on the **SerializableDictionaryPropertyDrawer** & the `using AgToolkit.Core.Helper.Drawer;`
+
+**Implement your **SerializableDictionary**  as a property**
+
+```cs
+[SerializeField]
+private StringGameObjectDictionary _prefabToInstantiate= new StringGameObjectDictionary();
+``` 
+
+### TimerManager
 
 todo
