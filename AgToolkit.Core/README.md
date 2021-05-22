@@ -2,14 +2,15 @@
 
 The **core module** implements many features that can be used in all types of projects. Here is the list and documentation for all of the features provived.
 
-* [Singleton](#singleton)
-* [Pool](#pool)
+* [DesignPattern](#designpattern)
 * [DataSystem](#datasystem)
 * [Loader](#loader)
 * [GameMode](#gamemode)
 * [Helper](#helper)
 
-## Singleton
+## DesignPattern
+
+### Singleton
 
 In software engineering, the singleton pattern is a software design pattern that restricts the instantiation of a class to one "single" instance. This is useful when exactly one object is needed to coordinate actions across the system.
 
@@ -65,7 +66,7 @@ public class TaskManager : Singleton<TaskManager>
 
 
 
-## Pool
+### Pool
 
 The object pool pattern is a software creational design pattern that uses a set of initialized objects kept ready to use a "pool" rather than allocating and destroying them on demand. A client of the pool will request an object from the pool and perform operations on the returned object. When the client has finished, it returns the object to the pool rather than destroying it.
 
