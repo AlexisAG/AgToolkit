@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using AgToolkit.Core.DesignPattern.Singleton;
 using AgToolkit.Core.Helper;
-using AgToolkit.Core.Managers;
+using AgToolkit.Core.Manager;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;

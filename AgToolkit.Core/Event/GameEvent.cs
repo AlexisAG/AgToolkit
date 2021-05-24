@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace AgToolkit.Core.Events
+namespace AgToolkit.Core.Event
 {
     public class GameEvent : ScriptableObject, IGameEvent
 	{
