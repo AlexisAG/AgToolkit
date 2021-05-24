@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-namespace AgToolkit.Core.Helper.Timer
+namespace AgToolkit.Core.Managers
 {
     public class Timer
     {

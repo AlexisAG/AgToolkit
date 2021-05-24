@@ -1,4 +1,4 @@
-﻿namespace AgToolkit.Core.Helper.Events.Listeners
+﻿namespace AgToolkit.Core.Events
 {
     public class StringGameEventListener : GameEventListener<string, StringGameEvent, StringUnityEvent> { }
     public class IntGameEventListener : GameEventListener<int, IntGameEvent, IntUnityEvent> { }
