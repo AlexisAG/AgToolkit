@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
-using AgToolkit.Core.Helper.Events.Listeners;
 using UnityEngine;
 
-namespace AgToolkit.Core.Helper.Events
+namespace AgToolkit.Core.Events
 {
 	public abstract class GameEvent<T> : GameEvent, IGameEvent<T>
     {

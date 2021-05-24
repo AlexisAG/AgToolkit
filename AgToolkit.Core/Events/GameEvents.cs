@@ -1,7 +1,4 @@
-﻿using System;
-using UnityEngine;
-
-namespace AgToolkit.Core.Helper.Events
+﻿namespace AgToolkit.Core.Events
 {
     public class StringGameEvent : GameEvent<string> { }
     public class BoolGameEvent : GameEvent<bool> { }

@@ -1,4 +1,4 @@
-namespace AgToolkit.Core.Helper.Events.Listeners
+namespace AgToolkit.Core.Events
 {
 	public interface IGameEventListener
 	{
