@@ -1,4 +1,4 @@
-using AgToolkit.Core.DesignPattern.Singleton;
+using AgToolkit.Core.DesignPattern;
 
 namespace AgToolkit.Core.Manager
 {

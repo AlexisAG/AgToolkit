@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace AgToolkit.Core.GameModes.GameStates
+namespace AgToolkit.Core.GameMode
 {
 	/// <summary>
 	/// prefer using GameStateMonoBehaviour<T> which includes Data

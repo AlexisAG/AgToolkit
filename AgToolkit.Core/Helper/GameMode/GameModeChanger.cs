@@ -1,5 +1,5 @@
-using AgToolkit.AgToolkit.Core.GameModes;
-using AgToolkit.Core.GameModes;
+using AgToolkit.Core.GameMode;
+using AgToolkit.Core.Manager;
 using UnityEngine;
 
 namespace AgToolkit.Core.Helper

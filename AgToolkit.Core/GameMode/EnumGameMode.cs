@@ -1,7 +1,6 @@
-using AgToolkit.Core.Helper;
 using UnityEngine;
 
-namespace AgToolkit.AgToolkit.Core.GameModes
+namespace AgToolkit.Core.GameMode
 {
     [CreateAssetMenu(menuName = "AgToolkit/GameMode/EnumGameMode", fileName = "NewGameModeEnum")]
 	public class EnumGameMode : ScriptableObject

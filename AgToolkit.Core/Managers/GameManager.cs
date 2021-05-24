@@ -1,10 +1,11 @@
 using System.Collections;
-using AgToolkit.AgToolkit.Core.GameModes;
-using AgToolkit.Core.DesignPattern.Singleton;
+using AgToolkit.Core.DesignPattern;
 using AgToolkit.Core.Loader;
 using UnityEngine;
+using AgToolkit.Core.Helper;
+using AgToolkit.Core.GameMode;
 
-namespace AgToolkit.Core.GameModes
+namespace AgToolkit.Core.Manager
 {
 	public class GameManager : Singleton<GameManager>
 	{
@@ -12,7 +13,7 @@ namespace AgToolkit.Core.GameModes
 		private GameModeConfig _gameModesConfig = null;
         private SceneContent _currentSceneContent = null;
 
-		public GameMode CurrentGameMode { get; private set; }
+		public GameMode.GameMode CurrentGameMode { get; private set; }
         public SceneContent CurrentSceneContent { get; private set; }
 
         protected void Start()
@@ -23,7 +24,7 @@ namespace AgToolkit.Core.GameModes
 			ChangeGameMode(_gameModesConfig?.FirstGameMode);
 		}
 
-		public T GetCurrentGameMode<T>() where T : GameMode
+		public T GetCurrentGameMode<T>() where T : GameMode.GameMode
 		{
 			Debug.Assert(CurrentGameMode != null && CurrentGameMode is T, $"CurrentGameMode {CurrentGameMode?.Id.Name} is not of requested type {typeof(T).Name}");
 
@@ -49,7 +50,7 @@ namespace AgToolkit.Core.GameModes
 			SceneLoaderManager.Instance.Load(sceneContent);
 		}
 
-		internal void SetGameMode(GameMode gameMode)
+		internal void SetGameMode(GameMode.GameMode gameMode)
 		{
 			Debug.Assert(CurrentGameMode == null);
 
@@ -64,9 +65,7 @@ namespace AgToolkit.Core.GameModes
 
 		private IEnumerator OnAfterLoad()
 		{
-			//new game mode should have register in its Awake function
-			Debug.Assert(CurrentGameMode != null, "Could not found any GameMode, ensure you have one GameMode component, and that GameMode.Awake is called");
-
+			Debug.Assert(CurrentGameMode != null, "Could not found any GameMode, ensure you have one active GameMode component in your scene");
 			yield return CurrentGameMode.OnLoad();
 		}
 

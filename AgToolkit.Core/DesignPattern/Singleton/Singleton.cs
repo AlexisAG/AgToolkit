@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace AgToolkit.Core.DesignPattern.Singleton
+namespace AgToolkit.Core.DesignPattern
 {
     public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 	{

@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using AgToolkit.Core.DesignPattern.Singleton;
+using AgToolkit.Core.DesignPattern;
 using AgToolkit.Core.Manager;
 using UnityEngine;
 using Object = UnityEngine.Object;

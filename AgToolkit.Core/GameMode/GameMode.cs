@@ -1,9 +1,8 @@
+using AgToolkit.Core.Manager;
 using System.Collections;
-using AgToolkit.AgToolkit.Core.GameModes;
-using AgToolkit.Core.GameModes.GameStates;
 using UnityEngine;
 
-namespace AgToolkit.Core.GameModes
+namespace AgToolkit.Core.GameMode
 {
 	public abstract class GameMode : MonoBehaviour
 	{
@@ -15,7 +14,7 @@ namespace AgToolkit.Core.GameModes
 		public virtual void Awake()
 		{
 			Debug.Assert(Id != null, "no EnumGameMode asset assigned to GameMode.");
-			GameManager.Instance.SetGameMode(this);
+            GameManager.Instance.SetGameMode(this);
 		}
 
 		/// <summary>

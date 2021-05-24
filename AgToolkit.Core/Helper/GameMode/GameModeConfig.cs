@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-using AgToolkit.Core.Helper;
+using AgToolkit.Core.GameMode;
 using AgToolkit.Core.Loader;
 using UnityEngine;
 
-namespace AgToolkit.AgToolkit.Core.GameModes
+namespace AgToolkit.Core.Helper
 {
 	[CreateAssetMenu(menuName = "AgToolkit/GameMode/GameModeConfig", fileName = "NewGameModeConfig")]
 	public class GameModeConfig : ScriptableObject

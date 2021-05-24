@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace AgToolkit.Core.GameModes.GameStates
+namespace AgToolkit.Core.GameMode
 {
 
 	/// <summary>
