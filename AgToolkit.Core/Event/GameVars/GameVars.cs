@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AgToolkit.Core.Events
+namespace AgToolkit.Core.Event
 {
     [Serializable]
     public class StringGameVar : GameVar<string> { }

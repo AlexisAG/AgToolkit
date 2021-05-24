@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace AgToolkit.Core.Events
+namespace AgToolkit.Core.Event
 {
 
 	/// <summary>

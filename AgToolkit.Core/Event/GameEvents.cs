@@ -1,4 +1,4 @@
-﻿namespace AgToolkit.Core.Events
+﻿namespace AgToolkit.Core.Event
 {
     public class StringGameEvent : GameEvent<string> { }
     public class BoolGameEvent : GameEvent<bool> { }

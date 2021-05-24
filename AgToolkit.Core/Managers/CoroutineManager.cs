@@ -1,6 +1,6 @@
 using AgToolkit.Core.DesignPattern.Singleton;
 
-namespace AgToolkit.Core.Managers
+namespace AgToolkit.Core.Manager
 {
 	/// <summary>
 	/// Simple Monobehaviour object ot ensure coroutine doesn't get killed when an object is inactive

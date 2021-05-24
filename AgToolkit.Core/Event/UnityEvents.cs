@@ -1,7 +1,7 @@
 using System;
 using UnityEngine.Events;
 
-namespace AgToolkit.Core.Events
+namespace AgToolkit.Core.Event
 {
 
 	[Serializable]
