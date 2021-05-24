@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using AgToolkit.Core.DesignPattern;
 using AgToolkit.Core.Helper;
-using AgToolkit.Core.Manager;
+using AgToolkit.Core.Loader;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
-namespace AgToolkit.Core.Loader
+namespace AgToolkit.Core.Manager
 {
 	public class SceneLoaderManager : Singleton<SceneLoaderManager>
 	{
