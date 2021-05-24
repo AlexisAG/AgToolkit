@@ -1,5 +1,7 @@
 
-namespace AgToolkit.Core.GameModes.GameStates
+using AgToolkit.Core.Manager;
+
+namespace AgToolkit.Core.GameMode
 {
 	/// <summary>
 	/// Serializable Data class used to bridge between GameStateMonoBehaviour in scene and GameStateMachineBehaviour in AnimatorController

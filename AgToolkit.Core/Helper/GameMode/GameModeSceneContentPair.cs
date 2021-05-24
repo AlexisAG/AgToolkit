@@ -1,7 +1,8 @@
 using System;
+using AgToolkit.Core.GameMode;
 using AgToolkit.Core.Loader;
 
-namespace AgToolkit.AgToolkit.Core.GameModes
+namespace AgToolkit.Core.Helper
 {
 	[Serializable]
 	public class GameModeSceneContentPair
