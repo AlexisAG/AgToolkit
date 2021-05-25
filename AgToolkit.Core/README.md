@@ -10,13 +10,18 @@ The **core module** implements many features that can be used in all types of pr
 * [GameMode](#gamemode)
 * [Helper](#helper)
 * [Manager](#manager)
-  * [BundleDataManager](#bundledatamanager)
-  * [CoroutineManager](#coroutinemanager)
-  * [GameManager](#gamemanager)
+  * [BundleDataManager](#bundledatamanager) (todo)
+  * [CoroutineManager](#coroutinemanager) (todo)
+  * [GameManager](#gamemanager) (todo)
   * [SceneLoaderManager](#sceneloadermanager)
-  * [TimerManager](#timermanager)
+  * [TimerManager](#timermanager) (todo)
 * [Misc](#misc)
+  * [GameEventListeners](#gameeventlisteners) (todo)
+  * [GameEvents](#gameevents) (todo)
+  * [GameModeSceneContentPair](#gamemodescenecontentpair) (todo)
+  * [GameVars](#gamevars) (todo)
   * [SceneContent](#scenecontent)
+  * [UnityEvents](#unityevents) (todo)
 
 ## DataSystem
 
