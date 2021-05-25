@@ -2,13 +2,94 @@
 
 The **core module** implements many features that can be used in all types of projects. Here is the list and documentation for all of the features provived.
 
+* [DataSystem](#datasystem)
 * [DesignPattern](#designpattern)
   * [Pool](#pool)
   * [Singleton](#singleton)
-* [DataSystem](#datasystem)
-* [Loader](#loader)
+* [Event](#event)
 * [GameMode](#gamemode)
 * [Helper](#helper)
+* [Manager](#manager)
+  * [BundleDataManager](#bundledatamanager)
+  * [CoroutineManager](#coroutinemanager)
+  * [GameManager](#gamemanager)
+  * [SceneLoaderManager](#sceneloadermanager)
+  * [TimerManager](#timermanager)
+* [Misc](#misc)
+  * [SceneContent](#scenecontent)
+
+## DataSystem
+
+This toolkit provide a **DataSystem** to save or load data for your your project.
+
+### Load AssetBundle with DataSystem
+
+When you call the **DataSystem** to load your *AssetBundle* it will always return a `List<T>`. This *List* can be empty if no *AssetBundle* has been found.
+
+**Local *AssetBundle***:
+  
+  There is 2 ways to load your local *AssetBundle*. 
+  
+  * Async method:
+  
+  ```cs 
+  public IEnumerator LoadLocalBundleAsync<T>(string bundleName, System.Action<List<T>> callback) where T : Object
+  ```
+  
+*LoadLocalBundleAsync* takes 2 arguments, the name of the bundle you want to load and the callback to call when the data is loaded.
+  
+  ```cs
+  // How to use the LoadLocalBundleAsync method
+  [SerializeField]
+  string _BundleName = "buildings";
+  
+  public IEnumerator Load()
+  {
+    List<Building> _Buildings = null;
+    yield return DataSystem.LoadLocalBundleAsync<Building>(_BundleName, data => _Buildings = data);  
+  }
+  ```
+ 
+  * Sync method: 
+  
+  ```cs
+  public List<T> LoadLocalBundleSync<T>(string bundleName) where T : Object
+  ```
+  
+  *LoadLocalBundleSync* takes 1 argument, the name of the bundle. This method is not recommended if you have a lot of data in your *AssetBundle*.
+  
+  ```cs
+  // How to use the LoadLocalBundleSync method
+  [SerializeField]
+  string _BundleName = "buildings";
+  
+  public void Load() 
+  {
+    List<Building> _Buildings = DataSystem.LoadLocalBundleSync<Building>(_BundleName);
+  }
+  ```
+
+***AssetBundle* from Web**:
+
+You can load *AssetBundle* from web only in *Async*. 
+
+```cs
+public IEnumerator LoadBundleFromWeb<T>(string url, System.Action<List<T>> callback) where T : Object
+``` 
+
+*LoadLocalBundleAsync* takes 2 arguments, the URL of the bundle you want to load and the callback to call when the data is loaded.
+  
+  ```cs
+  // How to use the LoadLocalBundleAsync method
+  [SerializeField]
+  string _BundleName = "buildings";
+  
+  public IEnumerator Load()
+  {
+    List<Building> _Buildings = null;
+    yield return DataSystem.LoadBundleFromWeb<Building>(_BundleName, data => _Buildings = data);  
+  }
+  ```
 
 ## DesignPattern
 
@@ -104,111 +185,6 @@ public class TaskManager : Singleton<TaskManager>
 }
 ```
 
-## DataSystem
-
-This toolkit provide a **DataSystem** to save or load data for your your project.
-
-### Load AssetBundle with DataSystem
-
-When you call the **DataSystem** to load your *AssetBundle* it will always return a `List<T>`. This *List* can be empty if no *AssetBundle* has been found.
-
-**Local *AssetBundle***:
-  
-  There is 2 ways to load your local *AssetBundle*. 
-  
-  * Async method:
-  
-  ```cs 
-  public IEnumerator LoadLocalBundleAsync<T>(string bundleName, System.Action<List<T>> callback) where T : Object
-  ```
-  
-*LoadLocalBundleAsync* takes 2 arguments, the name of the bundle you want to load and the callback to call when the data is loaded.
-  
-  ```cs
-  // How to use the LoadLocalBundleAsync method
-  [SerializeField]
-  string _BundleName = "buildings";
-  
-  public IEnumerator Load()
-  {
-    List<Building> _Buildings = null;
-    yield return DataSystem.LoadLocalBundleAsync<Building>(_BundleName, data => _Buildings = data);  
-  }
-  ```
- 
-  * Sync method: 
-  
-  ```cs
-  public List<T> LoadLocalBundleSync<T>(string bundleName) where T : Object
-  ```
-  
-  *LoadLocalBundleSync* takes 1 argument, the name of the bundle. This method is not recommended if you have a lot of data in your *AssetBundle*.
-  
-  ```cs
-  // How to use the LoadLocalBundleSync method
-  [SerializeField]
-  string _BundleName = "buildings";
-  
-  public void Load() 
-  {
-    List<Building> _Buildings = DataSystem.LoadLocalBundleSync<Building>(_BundleName);
-  }
-  ```
-
-***AssetBundle* from Web**:
-
-You can load *AssetBundle* from web only in *Async*. 
-
-```cs
-public IEnumerator LoadBundleFromWeb<T>(string url, System.Action<List<T>> callback) where T : Object
-``` 
-
-*LoadLocalBundleAsync* takes 2 arguments, the URL of the bundle you want to load and the callback to call when the data is loaded.
-  
-  ```cs
-  // How to use the LoadLocalBundleAsync method
-  [SerializeField]
-  string _BundleName = "buildings";
-  
-  public IEnumerator Load()
-  {
-    List<Building> _Buildings = null;
-    yield return DataSystem.LoadBundleFromWeb<Building>(_BundleName, data => _Buildings = data);  
-  }
-  ```
-
-## Loader
-
-This toolkit provide a **Loader** to load one or more *Scene* with a *loading scene* and a *lightning scene* in your project. This **Loader** can have multiple *persistent scene* and a default *Loading Scene*. You can use it through the singleton **SceneLoaderManager**.
-
-As a *Singleton*, it's recommended to attach the **SceneLoaderManager** on a gameobject (see [Singleton doc](#singleton)).
-
-This toolkit provide a **SceneContent** which is a *ScriptableObject*. In fact, the *SceneLoaderManager* use a *SceneContent*.
-
-To create *SceneContent* follow the steps below:
-
-1. Right click in your **Project window**.
-2. Select **SceneContent** in the AgToolkit tab.
-
-![Create SceneContent](/Documentation/Images/CreateSceneContent.jpg)
-
-**SceneContent properties**
-
-![SceneContent Properties](/Documentation/Images/SceneContentProperties.jpg)
-
-* LoadingScene: This is the scene that will be displayed during the loading of *ContentScenes*. It can be null but if it's not null, it will override the *DefaultLoadingScene* of the **SceneLoaderManager**.
-* ContentScenes: An array of scene, a scene is required minimum.
-* LightningScene: This is the scene with the lightning system, it can be null.
-
-**SceneLoaderManager properties**:
-
-![SceneLoaderManager Properties](/Documentation/Images/SceneLoaderManager.jpg)
-
-* DefaultLoadingScene: Default loading scene when a *SceneContent* is loaded. if the current *SceneContent* has a *LoadingScene*, the *DefaultLoadingScene* will not be used.
-* AdditionalPersistentScenes: Additional scenes that will be persistent. It can be empty.
-* MinLoadTimeSec: Represents the minimum loading time. If the current loading time is less than this, the *SceneLoaderManager* will wait until the time is greater than or equal to it. 
-
-
 ## GameMode
 
 todo
@@ -285,6 +261,56 @@ Note the **preprocessor directive** on the **SerializableDictionaryPropertyDrawe
 private StringGameObjectDictionary _prefabToInstantiate= new StringGameObjectDictionary();
 ``` 
 
-### TimerManager
+## Manager
 
-todo
+### SceneLoaderManager
+
+This toolkit provide a **SceneLoaderManager** to load one or more *Scene* with a *loading scene* and a *lightning scene* in your project. This **manager** can have multiple *persistent scene* and a default *Loading Scene*. You can use it through the singleton **SceneLoaderManager**.
+As a *Singleton*, it's recommended to attach the **SceneLoaderManager** on a gameobject (see [Singleton doc](#singleton)).
+
+![SceneLoaderManager Properties](/Documentation/Images/SceneLoaderManager.jpg)
+
+* DefaultLoadingScene: Default loading scene when a *SceneContent* is loaded. if the current *SceneContent* has a *LoadingScene*, the *DefaultLoadingScene* will not be used (check [SceneContent](#scenecontent) doc).
+* AdditionalPersistentScenes: Additional scenes that will be persistent. It can be empty.
+* MinLoadTimeSec: Represents the minimum loading time. If the current loading time is less than this, the *SceneLoaderManager* will wait until the time is greater than or equal to it. 
+
+Also, you can use this manager from your code to subscribe event and load/Add a persistent scene.
+
+**Events available**
+```cs
+public event Func<IEnumerator> OnBeforeUnload = null;
+public event Func<IEnumerator> OnAfterLoad = null;
+public event Func<IEnumerator> OnFadeIn = null;
+public event Func<IEnumerator> OnFadeOut = null;
+```
+
+**Add a persistent scene**
+```cs
+SceneLoaderManager.Instance.AddPersistentSceneToLoad(sceneContent);
+``` 
+
+**Load a scene**
+```cs
+SceneLoaderManager.Instance.Load(sceneContent);
+``` 
+
+## Misc
+
+### SceneContent
+
+This toolkit provide a **SceneContent** which is a *ScriptableObject*.
+
+To create *SceneContent* follow the steps below:
+
+1. Right click in your **Project window**.
+2. Select **SceneContent** in the AgToolkit tab.
+
+![Create SceneContent](/Documentation/Images/CreateSceneContent.jpg)
+
+**SceneContent properties**
+
+![SceneContent Properties](/Documentation/Images/SceneContentProperties.jpg)
+
+* LoadingScene: This is the scene that will be displayed during the loading of *ContentScenes*. It can be null but if it's not null, it will override the *DefaultLoadingScene* of the **SceneLoaderManager**.
+* ContentScenes: An array of scene, a scene is required minimum.
+* LightningScene: This is the scene with the lightning system, it can be null.
