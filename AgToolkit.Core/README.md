@@ -13,6 +13,7 @@ The **core module** implements many features that can be used in all types of pr
   * [BundleDataManager](#bundledatamanager) (todo)
   * [CoroutineManager](#coroutinemanager) (todo)
   * [GameManager](#gamemanager) (todo)
+  * [PoolManager](#poolmanager)
   * [SceneLoaderManager](#sceneloadermanager)
   * [TimerManager](#timermanager) (todo)
 * [Misc](#misc)
@@ -107,8 +108,7 @@ As a *Singleton*, it's recommended to attach the **PoolManager** on a gameobject
 
 There is 2 ways to **create a pool**. 
 
-1. From the Unity editor on the gameobject with the **PoolManager** script attached. (see the screenshot below)
- ![Create Pool Example](/Documentation/Images/AddPoolFromEditor.JPG)
+1. From the Unity editor on the gameobject with the [PoolManager](#poolmanager) script attached.
 2. From Script : ``yield return PoolManager.Instance.CreatePool(new PoolData("fake", prefab, 50, true, true));``
 
 **PoolData properties**:
@@ -267,6 +267,13 @@ private StringGameObjectDictionary _prefabToInstantiate= new StringGameObjectDic
 ``` 
 
 ## Manager
+
+### PoolManager
+
+This toolkit provide a pool system. You can use it through the singleton **PoolManager**.
+As a *Singleton*, it's recommended to attach the **PoolManager** on a gameobject (see [Singleton doc](#singleton)).
+
+![Create Pool Example](/Documentation/Images/AddPoolFromEditor.JPG)
 
 ### SceneLoaderManager
 
