@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using AgToolkit.Core.DesignPattern;
 using AgToolkit.Core.Helper;
-using AgToolkit.Core.Loader;
+using AgToolkit.Core.Misc;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -47,11 +47,11 @@ namespace AgToolkit.Core.Manager
 			_AdditionalPersistentScenes.Add(scene);
 		}
 
-		/// <summary>
-		/// Start loading next scene(s) and unloading previous ones
-		/// </summary>
-		/// <param name="sceneContent">next SceneContent asset to load, or null to use <see cref="_NextSceneContent"</see> </param>
-		public void Load(SceneContent sceneContent)
+        /// <summary>
+        /// Start loading next scene(s) and unloading previous ones
+        /// </summary>
+        /// <param name="sceneContent">next SceneContent asset to load, or null to use <see cref="_NextSceneContent"</see> </param>
+        public void Load(SceneContent sceneContent)
 		{
 			if (sceneContent != null)
 			{

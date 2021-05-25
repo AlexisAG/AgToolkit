@@ -1,6 +1,9 @@
 ﻿using System;
 
-[Serializable]
-public abstract class DataSerializable
+namespace AgToolkit.Core.DataSystem
 {
+    [Serializable]
+    public abstract class DataSerializable
+    {
+    }
 }
