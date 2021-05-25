@@ -1,7 +1,7 @@
 using AgToolkit.Core.Helper;
 using UnityEngine;
 
-namespace AgToolkit.Core.Loader
+namespace AgToolkit.Core.Misc
 {
 	[CreateAssetMenu(menuName = "AgToolkit/Scene Content", fileName = "NewSceneContent")]
 	public class SceneContent : ScriptableObject

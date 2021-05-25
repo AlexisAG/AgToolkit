@@ -2,12 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using AgToolkit.Core.DataSystem;
 using AgToolkit.Core.DesignPattern;
-using AgToolkit.Core.Manager;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace AgToolkit.AgToolkit.Core.DataSystem
+namespace AgToolkit.Core.Manager
 {
     public class BundleDataManager : Singleton<BundleDataManager>, IBackup
     {
@@ -48,7 +48,7 @@ namespace AgToolkit.AgToolkit.Core.DataSystem
         public void ClearAllBundlesLoaded(bool destroyGameObject = false)
         {
             _BundleData.Clear();
-            DataSystem.UnloadAllAssetBundles(destroyGameObject);
+            DataSystem.DataSystem.UnloadAllAssetBundles(destroyGameObject);
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace AgToolkit.AgToolkit.Core.DataSystem
             if (!_BundleData.ContainsKey(bundle)) return;
 
 
-            DataSystem.UnloadAssetBundle(bundle, destroyGameObject);
+            DataSystem.DataSystem.UnloadAssetBundle(bundle, destroyGameObject);
             _BundleData.Remove(bundle);
         }
 
@@ -76,15 +76,15 @@ namespace AgToolkit.AgToolkit.Core.DataSystem
             {
                 if (Uri.IsWellFormedUriString(name, UriKind.Absolute))
                 {
-                    yield return DataSystem.LoadBundleFromWeb<Object>(name, list => _BundleData.Add(name, list));
+                    yield return DataSystem.DataSystem.LoadBundleFromWeb<Object>(name, list => _BundleData.Add(name, list));
                 }
                 else
                 {
-                    yield return DataSystem.LoadLocalBundleAsync<Object>(name, list => _BundleData.Add(name, list));
+                    yield return DataSystem.DataSystem.LoadLocalBundleAsync<Object>(name, list => _BundleData.Add(name, list));
                 }
             }
 
-            if(_CleanMemoryAfterOnLoad) DataSystem.UnloadAllAssetBundles();
+            if(_CleanMemoryAfterOnLoad) DataSystem.DataSystem.UnloadAllAssetBundles();
         }
     }
 }

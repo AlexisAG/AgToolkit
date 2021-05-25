@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,7 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace AgToolkit.AgToolkit.Core.DataSystem
+namespace AgToolkit.Core.DataSystem
 {
     public class DataSystem
     {

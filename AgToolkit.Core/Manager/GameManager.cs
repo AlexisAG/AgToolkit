@@ -1,9 +1,9 @@
 using System.Collections;
 using AgToolkit.Core.DesignPattern;
-using AgToolkit.Core.Loader;
 using UnityEngine;
 using AgToolkit.Core.Helper;
 using AgToolkit.Core.GameMode;
+using AgToolkit.Core.Misc;
 
 namespace AgToolkit.Core.Manager
 {
@@ -11,6 +11,7 @@ namespace AgToolkit.Core.Manager
 	{
 		[SerializeField]
 		private GameModeConfig _gameModesConfig = null;
+
         private SceneContent _currentSceneContent = null;
 
 		public GameMode.GameMode CurrentGameMode { get; private set; }
