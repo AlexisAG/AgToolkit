@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using AgToolkit.Core.DesignPattern;
 using UnityEngine;
 
-namespace AgToolkit.Core.DesignPattern.Pool
+namespace AgToolkit.Core.Manager
 {
 	public class PoolManager : Singleton<PoolManager>
 	{
