@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using Object = UnityEngine.Object;
 
-namespace AgToolkit.Core.DesignPattern.Pool
+namespace AgToolkit.Core.DesignPattern
 {
 
 	[Serializable]
