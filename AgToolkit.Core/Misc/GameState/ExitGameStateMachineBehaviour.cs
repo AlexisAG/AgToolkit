@@ -1,7 +1,8 @@
+using AgToolkit.Core.GameMode;
 using AgToolkit.Core.Manager;
 using UnityEngine;
 
-namespace AgToolkit.Core.GameMode
+namespace AgToolkit.Core.Misc
 {
 	public class ExitGameStateMachineBehaviour : GameStateMachineBehaviour<ExitData>
 	{
