@@ -12,8 +12,6 @@ namespace AgToolkit.Core.Manager
 		[SerializeField]
 		private GameModeConfig _gameModesConfig = null;
 
-        private SceneContent _currentSceneContent = null;
-
 		public GameMode.GameMode CurrentGameMode { get; private set; }
         public SceneContent CurrentSceneContent { get; private set; }
 
