@@ -1,5 +1,5 @@
-using AgToolkit.Core.GameModes.GameStates;
-using AgToolkit.Core.Helper;
+using AgToolkit.Core.GameMode;
+using AgToolkit.Core.Manager;
 using UnityEngine;
 
 namespace AgToolkit.Network

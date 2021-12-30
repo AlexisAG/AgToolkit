@@ -1,6 +1,6 @@
-using AgToolkit.AgToolkit.Core.Singleton;
-using AgToolkit.Core.Helper;
-using AgToolkit.Core.Pool;
+using AgToolkit.Core.DesignPattern;
+using AgToolkit.Core.Manager;
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

@@ -1,5 +1,5 @@
 using System;
-using AgToolkit.Core.GameModes.GameStates;
+using AgToolkit.Core.GameMode;
 
 namespace AgToolkit.Network
 {
